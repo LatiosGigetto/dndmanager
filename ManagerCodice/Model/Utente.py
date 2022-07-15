@@ -1,4 +1,5 @@
 import Scheda
+
 class Utente:
     def __init__(self):
         self.id = "";
