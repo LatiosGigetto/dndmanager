@@ -1,83 +1,106 @@
 class Scheda:
-    def __init__(self):
-        self.abilita = ();
-        self.armatura = 0;
-        self.classe = "";
-        self.livello = 1;
-        self.punteggi = ();
-        self.puntiFerita = 0;
-        self.salvezza = ();
-        self.spazioNote = "";
-        self.storia = {};
 
-    @property
+    def __init__(self):
+        self.nome = ""
+        self.armatura = 0
+        self.classe = ""
+        self.livello = 1
+        self.punteggi = {
+            "Forza" : 0,
+            "Destrezza" : 0,
+            "Costituzione" : 0,
+            "Intelligenza" : 0,
+            "Saggezza" : 0,
+            "Carisma" : 0
+        }
+        self.abilita = {
+            "Acrobazia" : 0,
+            "Addestrare Animali" : 0,
+            "Arcano" : 0
+,           "Atletica" : 0,
+            "Furtività" : 0,
+            "Indagare" : 0,
+            "Inganno" : 0,
+            "Intimidire" : 0,
+            "Intrattenere" : 0,
+            "Intuizione" : 0,
+            "Medicina" : 0,
+            "Natura" : 0,
+            "Percezione" : 0,
+            "Persuasione" : 0,
+            "Rapidità di Mano" : 0,
+            "Religione" : 0,
+            "Sopravvivenza" : 0,
+            "Storia" : 0
+        }
+        self.puntiFerita = 0
+        self.salvezza = {
+            "Forza" : 0,
+            "Destrezza" : 0,
+            "Costituzione" : 0,
+            "Intelligenza" : 0,
+            "Saggezza" : 0,
+            "Carisma" : 0
+        }
+        self.spazioNote = ""
+        self.storia = ""
+
+    def getNome(self):
+        return self.nome
+
+    def setNome(self, nome):
+        self.nome = nome
+
     def getAbilita (self):
         return self.abilita
 
-    @.setter
     def setAbilita (self, abilita):
-        pass
+        self.abilita = abilita
 
-    @property
     def getArmatura(self):
         return self.armatura
 
-    @.setter
     def setArmatura(self, armatura):
-        pass
+        self.armatura = armatura
 
-    @property
     def getClasse(self):
         return self.classe
 
-    @.setter
     def setClasse(self, classe):
-        pass
+        self.classe = classe
 
-    @property
     def getLivello(self):
         return self.livello
 
-    @.setter
     def setLivello(self, livello):
-        pass
+        self.livello = livello
 
-    @property
     def getPunteggi(self):
         return self.classe
 
-    @.setter
     def setPunteggi(self, punteggi):
-        pass
+        self.punteggi = punteggi
 
-    @property
     def getPuntiFerita(self):
         return self.classe
 
-    @.setter
     def setPuntiFerita(self, puntiFerita):
-        pass
+        self.puntiFerita = puntiFerita
 
-    @property
     def getSalvezza(self):
         return self.salvezza
 
-    @.setter
     def setSalvezza(self, salvezza):
-        pass
+        self.salvezza = salvezza
 
-    @property
     def getSpazioNote(self):
         return self.spazioNote
 
-    @.setter
     def setSpazioNote(self, spazioNote):
-        pass
+        self.spazioNote = spazioNote
 
-    @property
     def getStoria(self):
         return self.storia
 
-    @.setter
     def setStoria(self, storia):
-        pass
+        self.storia = storia
