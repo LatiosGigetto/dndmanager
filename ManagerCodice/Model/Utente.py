@@ -2,15 +2,15 @@ import Scheda
 
 class Utente:
     def __init__(self):
-        self.id = "";
-        self.nomeUtente = "";
-        self.password = "";
-        self.personaggio = Scheda();
+        self.id = ""
+        self.nomeUtente = ""
+        self.password = ""
+        self.personaggio = Scheda()
 
-    def getId (self):
+    def getId(self):
         return self.id
 
-    def setId (self, id):
+    def setId(self, id):
         pass
 
     def getNomeUtente(self):
@@ -20,7 +20,7 @@ class Utente:
         pass
 
     def getPassword(self):
-        return self.Password
+        return self.password
 
     def setPassword(self, password):
         pass

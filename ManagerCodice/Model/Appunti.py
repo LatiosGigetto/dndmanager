@@ -1,8 +1,11 @@
+from PIL import Image
+
+
 class Appunti:
     def __init__(self):
-        self.immagine = # TODO find the correct library
-        self.informazioni = "";
-        self.nome = "";
+        self.immagine = Image
+        self.informazioni = ""
+        self.nome = ""
 
     def getImmagine(self):
         return self.immagine
