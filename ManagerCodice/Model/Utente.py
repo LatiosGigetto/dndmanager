@@ -5,7 +5,7 @@ class Utente:
         self.id = ""
         self.nomeUtente = ""
         self.password = ""
-        self.personaggio = Scheda()
+        self.personaggio = Scheda.Scheda()
 
     def getId(self):
         return self.id

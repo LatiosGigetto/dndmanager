@@ -1,28 +1,27 @@
 import pickle
 
-from Model import Utente, Scheda
+from Model import Utente
 
 
 class Giocatore:
 
-    def __init__(self, utente):
-        self.idUtenteCorrente = utente.Utente.getId
-        self.utenteAttivo = utente
+    utente = Utente.Utente()    #creazione dell'oggetto ridondante perché è il costruttore che lo farà poi (parte da rivedere)
 
+    def __init__(self, utente):
+       self.utente = utente
     # TODO Python merda
 
-    def salvaScheda(self, personaggio):
-        with open(personaggio.getNome(), "wb") as f:
-            pickle.dump(personaggio, f, pickle.HIGHEST_PROTOCOL)
+    def salvaScheda(self):
+        with open(self.utente.personaggio.getNome(), "wb") as f:
+            pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def creaScheda(self, nome, punteggi, classe, livello, puntiFerita, armatura, tiroSalvezza1, tiroSalvezza2, abilita1, abilita2, storia):
-        personaggio = Scheda()
         competenza = int((livello-1)/4 + 2)
-        personaggio.setNome(nome)
-        personaggio.setClasse(classe)
-        personaggio.setLivello(livello)
-        personaggio.setPuntiFerita(puntiFerita)
-        personaggio.setArmatura(armatura)
+        self.utente.personaggio.setNome(nome)
+        self.utente.personaggio.setClasse(classe)
+        self.utente.personaggio.setLivello(livello)
+        self.utente.personaggio.setPuntiFerita(puntiFerita)
+        self.utente.personaggio.setArmatura(armatura)
         salvezza = {
             "Forza" : int(punteggi["Forza"]-10 / 2),
             "Destrezza": int(punteggi["Destrezza"] - 10 / 2),
@@ -31,10 +30,9 @@ class Giocatore:
             "Saggezza": int(punteggi["Saggezza"] - 10 / 2),
             "Carisma": int(punteggi["Carisma"] - 10 / 2)
         }
-
         salvezza[tiroSalvezza1] += competenza
         salvezza[tiroSalvezza2] += competenza
-        personaggio.setTiriSalvezza(salvezza)
+        self.utente.personaggio.setTiriSalvezza(salvezza)
         abilita = {
             "Acrobazia" : int(punteggi["Destrezza"] - 10 / 2),
             "Addestrare Animali" : int(punteggi["Saggezza"] - 10 / 2),
@@ -55,9 +53,9 @@ class Giocatore:
             "Sopravvivenza" : int(punteggi["Saggezza"] - 10 / 2),
             "Storia" : int(punteggi["Intelligenza"] - 10 / 2)
         }
-
         abilita[abilita1] += competenza
         abilita[abilita2] += competenza
-        personaggio.setAbilita(abilita)
-        personaggio.setStoria(storia)
-        self.salvaScheda(personaggio)
+        self.utente.personaggio.setAbilita(abilita)
+        self.utente.personaggio.setStoria(storia)
+        self.salvaScheda()
+
