@@ -59,3 +59,5 @@ class Giocatore:
         self.utente.personaggio.setStoria(storia)
         self.salvaScheda()
 
+
+
