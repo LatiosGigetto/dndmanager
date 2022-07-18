@@ -11,16 +11,18 @@ class Appunti:
         return self.immagine
 
     def setImmagine(self, immagine):
+        #TODO
         pass
 
     def getInformazioni(self):
         return self.informazioni
 
     def setInformazioni(self, informazioni):
+        #TODO
         pass
 
     def getNome(self):
         return self.nome
 
     def setNome(self, nome):
-        pass
+        self.nome = nome

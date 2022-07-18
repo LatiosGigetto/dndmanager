@@ -1,6 +1,5 @@
-import pickle
-
-from Model import Utente
+import pickle, random
+from Model import Utente, Utilities
 
 
 class Giocatore:
@@ -59,5 +58,6 @@ class Giocatore:
         self.utente.personaggio.setStoria(storia)
         self.salvaScheda()
 
-
-
+    def tiraDado(self, numeroFacce, numeroLanci):
+        self.dado = Utilities.Dado(numeroFacce, numeroLanci)
+        return random.randint(1, self.dado.numeroFacce)*self.dado.numeroLanci

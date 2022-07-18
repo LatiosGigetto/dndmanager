@@ -1,38 +1,65 @@
-
+import random, os
+from Model import Utilities
 
 class Master:
 
+    def caricaContatore(self):
+        contatore = 0
+        if (os.path.exists("readme.txt")):
+            with open("readme.txt") as f:
+                contatore = f.read()
+        f.close()
+        self.contatore = Utilities.Contatore(contatore)
+
     def aggiornaScheda(self):
-        print(":p")
+        #TODO
+        pass
 
     def aggiornaPersonaggi(self):
-        print(":p")
+        #TODO
+        pass
 
     def creaAppunti(self):
-        print(":p")
+        #TODO
+        pass
 
     def cambioCredenziali(self):
-        print(":p")
+        #TODO
+        pass
 
     def creaStatistiche(self):
-        print(":p")
+        #TODO
+        pass
 
     def eliminaAppunti(self):
-        print(":p")
+        #TODO
+        pass
 
-    def gestisciContatore(self):
-        print(":p")
+    def incrementaContatore(self):
+        self.contatore += 1
+
+    def resettaContatore(self):
+        self.contatore = 0
+
+    def visualizzaContatore(self):
+        if (self.contatore < 0):
+            self.resettaContatore(self)
+        return self.contatore
 
     def pubblicaAppunti(self):
-        print(":p")
+        #TODO
+        pass
 
-    def tiraDado(self):
-        print(":p")
+    def tiraDado(self, numeroFacce, numeroLanci):
+        self.dado = Utilities.Dado(numeroFacce, numeroLanci)
+        return random.randint(1, self.dado.numeroFacce) * self.dado.numeroLanci
 
     def visualizzaAppunti(self):
-        print(":p")
+        #TODO
+        pass
 
     def visualizzaPersonaggi(self):
-        print(":p")
+        #TODO
+        pass
 
 

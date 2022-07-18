@@ -11,16 +11,17 @@ class Utente:
         return self.id
 
     def setId(self, id):
-        pass
+        self.id = id
 
     def getNomeUtente(self):
         return self.nomeUtente
 
     def setNomeUtente(self, nomeUtente):
+        #TODO
         pass
 
     def getPassword(self):
         return self.password
 
     def setPassword(self, password):
-        pass
+        self.password = password
