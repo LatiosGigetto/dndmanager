@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>651</width>
+    <height>812</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>651</width>
+    <height>812</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>651</width>
+    <height>812</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Inserisci i parametri del personaggio:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="1">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Intelligenza</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Saggezza</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLineEdit" name="lineInt">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLineEdit" name="lineSagg">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Costituzione</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Forza</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="LineDestr">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Destrezza</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Carisma</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QLineEdit" name="lineCar">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLineEdit" name="lineCost">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="lineForza">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>Punti Ferita</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QComboBox" name="comboBox">
+        <item>
+         <property name="text">
+          <string>Acrobazia</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Addestrare Animali</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Arcano</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Atletica</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Furtività</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Indagare</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Inganno</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intimidire</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intrattenere</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intuizione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Medicina</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Natura</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Percezione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Persuasione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Rapidità di Mano</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Religione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sopravvivenza</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Storia</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Classe Armatura</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="sceltaLivello">
+        <item>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>3</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>4</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>5</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>6</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>7</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>8</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>9</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>10</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>11</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>12</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>13</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>14</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>15</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>16</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>17</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>18</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>19</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>20</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Livello</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="sceltaClasse">
+        <item>
+         <property name="text">
+          <string>Barbaro</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Bardo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Chierico</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Druido</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Guerriero</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Ladro</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Mago</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Monaco</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Paladino</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Ranger</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Stregone</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Warlock</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QComboBox" name="comboBox_2">
+        <item>
+         <property name="text">
+          <string>Acrobazia</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Addestrare Animali</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Arcano</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Atletica</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Furtività</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Indagare</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Inganno</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intimidire</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intrattenere</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intuizione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Medicina</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Natura</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Percezione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Persuasione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Rapidità di Mano</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Religione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sopravvivenza</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Storia</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QTextEdit" name="textEdit"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="linePF">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>Classe</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="lineCA">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QComboBox" name="sceltaTS">
+        <item>
+         <property name="text">
+          <string>Forza</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Destrezza</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Costituzione</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intelligenza</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Saggezza</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Carisma</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="0" rowspan="2">
+       <widget class="QLabel" name="label_13">
+        <property name="text">
+         <string>Abilità</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="label_14">
+        <property name="text">
+         <string>Storia personaggio</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>Tiri Salvezza</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Conferma</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
