@@ -10,9 +10,10 @@ class Giocatore:
        self.utente = utente
     # TODO Python merda
 
-    def salvaScheda(self):
-        with open(self.utente.personaggio.getNome(), "wb") as f:
-            pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
+    def cambioCredenziali(self, nomeUtente, password, id):
+        self.utente.setNomeUtente(self, nomeUtente)
+        self.utente.setPassword(self, password)
+        self.utente.setId(self, id)
 
     def creaScheda(self, nome, punteggi, classe, livello, puntiFerita, armatura, tiroSalvezza1, tiroSalvezza2, abilita1, abilita2, storia):
         competenza = int((livello-1)/4 + 2)
@@ -58,6 +59,35 @@ class Giocatore:
         self.utente.personaggio.setStoria(storia)
         self.salvaScheda()
 
+    def aggiornaScheda(self):
+        #TODO
+        self.salvaScheda()
+        pass
+
+    def visualizzaScheda(self):
+        #TODO
+        return self.utente.personaggio
+
+    def salvaScheda(self):
+        with open(self.utente.personaggio.getNome(), "wb") as f:
+            pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
+
     def tiraDado(self, numeroFacce, numeroLanci):
         self.dado = Utilities.Dado(numeroFacce, numeroLanci)
         return random.randint(1, self.dado.numeroFacce)*self.dado.numeroLanci
+
+    def modificaNote(self):
+        #TODO
+        self.salvaNote()
+
+    def visualizzaNote(self):
+        #TODO
+        pass
+
+    def salvaNote(self):
+        #TODO
+        pass
+
+    def visualizzaDispense(self):
+        #TODO
+        pass
