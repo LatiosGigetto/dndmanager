@@ -9,7 +9,7 @@ class Master:
             with open("readme.txt") as f:
                 contatore = f.read()
         f.close()
-        self.contatore = Utilities.Contatore(contatore)
+        self.contatoreAttuale = Utilities.Contatore(contatore)
 
     def aggiornaScheda(self):
         #TODO
@@ -36,15 +36,15 @@ class Master:
         pass
 
     def incrementaContatore(self):
-        self.contatore += 1
+        self.contatoreAttuale.contatore += 1
 
     def resettaContatore(self):
-        self.contatore = 0
+        self.contatoreAttuale.contatore = 0
 
     def visualizzaContatore(self):
-        if (self.contatore < 0):
-            self.resettaContatore(self)
-        return self.contatore
+        if (self.contatoreAttuale.contatore < 0):
+            self.resettaContatore()
+        return self.contatoreAttuale.contatore
 
     def pubblicaAppunti(self):
         #TODO
