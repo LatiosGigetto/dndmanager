@@ -11,7 +11,7 @@ class Master:
         f.close()
         self.contatoreAttuale = Utilities.Contatore(contatore)
 
-    def aggiornaScheda(self):
+    def aggiornaAppunti(self):
         #TODO
         pass
 
