@@ -4,10 +4,8 @@ from Model import Utente, Utilities
 
 class Giocatore:
 
-    utente = Utente.Utente()    #creazione dell'oggetto ridondante perché è il costruttore che lo farà poi (parte da rivedere)
-
-    def __init__(self, utente):
-       self.utente = utente
+    def __init__(self, utente:Utente.Utente):
+        self.utente = utente
     # TODO Python merda
 
     def cambioCredenziali(self, nomeUtente, password, id):
@@ -16,9 +14,9 @@ class Giocatore:
             if (nomeUtente == x):
                 print("nome utente già esistente")
                 return
-        self.utente.setNomeUtente(self, nomeUtente)
-        self.utente.setPassword(self, password)
-        self.utente.setId(self, id)
+        self.utente.setNomeUtente(nomeUtente)
+        self.utente.setPassword(password)
+        self.utente.setId(id)
 
     def creaScheda(self, nome, punteggi, classe, livello, puntiFerita, armatura, tiroSalvezza1, tiroSalvezza2, abilita1, abilita2, storia):
         competenza = int((livello-1)/4 + 2)
@@ -27,6 +25,7 @@ class Giocatore:
         self.utente.personaggio.setLivello(livello)
         self.utente.personaggio.setPuntiFerita(puntiFerita)
         self.utente.personaggio.setArmatura(armatura)
+        self.utente.personaggio.setPunteggi(punteggi)
         salvezza = {
             "Forza" : int(punteggi["Forza"]-10 / 2),
             "Destrezza": int(punteggi["Destrezza"] - 10 / 2),
@@ -64,10 +63,53 @@ class Giocatore:
         self.utente.personaggio.setStoria(storia)
         self.salvaScheda()
 
-    def aggiornaScheda(self):
-        #TODO
+    def aggiornaScheda(self, livello, punteggi, puntiFerita, armatura, tiroSalvezza1, tiroSalvezza2, abilita1, abilita2):
+        #TODO forse sarà da cambiare metodo
+        competenza = 0
+        if self.utente.personaggio.getLivello() != livello:
+            competenza = int((livello - 1) / 4 + 2)
+            self.utente.personaggio.setLivello(livello)
+        if self.utente.personaggio.getPunteggi() != punteggi:
+            self.utente.personaggio.setPunteggi(punteggi)
+            salvezza = {
+                "Forza": int(punteggi["Forza"] - 10 / 2),
+                "Destrezza": int(punteggi["Destrezza"] - 10 / 2),
+                "Costituzione": int(punteggi["Costituzione"] - 10 / 2),
+                "Intelligenza": int(punteggi["Intelligenza"] - 10 / 2),
+                "Saggezza": int(punteggi["Saggezza"] - 10 / 2),
+                "Carisma": int(punteggi["Carisma"] - 10 / 2)
+            }
+            salvezza[tiroSalvezza1] += competenza
+            salvezza[tiroSalvezza2] += competenza
+            abilita = {
+                "Acrobazia": int(punteggi["Destrezza"] - 10 / 2),
+                "Addestrare Animali": int(punteggi["Saggezza"] - 10 / 2),
+                "Arcano": int(punteggi["Intelligenza"] - 10 / 2),
+                "Atletica": int(punteggi["Forza"] - 10 / 2),
+                "Furtività": int(punteggi["Destrezza"] - 10 / 2),
+                "Indagare": int(punteggi["Intelligenza"] - 10 / 2),
+                "Inganno": int(punteggi["Carisma"] - 10 / 2),
+                "Intimidire": int(punteggi["Carisma"] - 10 / 2),
+                "Intrattenere": int(punteggi["Carisma"] - 10 / 2),
+                "Intuizione": int(punteggi["Saggezza"] - 10 / 2),
+                "Medicina": int(punteggi["Saggezza"] - 10 / 2),
+                "Natura": int(punteggi["Intelligenza"] - 10 / 2),
+                "Percezione": int(punteggi["Saggezza"] - 10 / 2),
+                "Persuasione": int(punteggi["Carisma"] - 10 / 2),
+                "Rapidità di Mano": int(punteggi["Destrezza"] - 10 / 2),
+                "Religione": int(punteggi["Intelligenza"] - 10 / 2),
+                "Sopravvivenza": int(punteggi["Saggezza"] - 10 / 2),
+                "Storia": int(punteggi["Intelligenza"] - 10 / 2)
+            }
+            abilita[abilita1] += competenza
+            abilita[abilita2] += competenza
+            self.utente.personaggio.setAbilita(abilita)
+            self.utente.personaggio.setTiriSalvezza(salvezza)
+        if self.utente.personaggio.getPuntiFerita() != puntiFerita:
+            self.utente.personaggio.setPuntiFerita(puntiFerita)
+        if self.utente.personaggio.getArmatura() != armatura:
+            self.utente.personaggio.setArmatura(armatura)
         self.salvaScheda()
-        pass
 
     def visualizzaScheda(self):
         #TODO
@@ -81,17 +123,16 @@ class Giocatore:
         self.dado = Utilities.Dado(numeroFacce, numeroLanci)
         return random.randint(1, self.dado.numeroFacce)*self.dado.numeroLanci
 
-    def modificaNote(self):
-        #TODO
+    def modificaNote(self, note):
+        self.utente.personaggio.setSpazioNote(note)
         self.salvaNote()
 
     def visualizzaNote(self):
-        #TODO
-        pass
+        return self.utente.personaggio.getSpazioNote()
 
     def salvaNote(self):
-        #TODO
-        pass
+        with open(self.utente.personaggio.getSpazioNote(), "wb") as f:
+            pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def visualizzaDispense(self):
         #TODO

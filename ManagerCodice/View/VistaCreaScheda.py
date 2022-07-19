@@ -349,4 +349,3 @@ class Ui_MainWindow(object):
                 popup.setText("Scheda creata con successo")
                 popup.setWindowTitle("DnD Manager")
                 popup.exec_()
-
