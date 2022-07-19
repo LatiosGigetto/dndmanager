@@ -44,7 +44,7 @@ class Accesso:
         utente.setId(id)
         self.listaUtenti.append(utente)
         self.salvaListaUtenti()
-        return True
+        return utente
 
     def login(self, nomeUtente, password):
         self.caricaListaUtenti()
@@ -54,10 +54,8 @@ class Accesso:
                     if i.isMaster:
                         return "Master"
                     else:
-                        print("arrivato")
-                        return "Giocatore"
+                        return i
                 else:
-                    print("Password errata.")
                     return "Password"
         print("Nome utente non trovato")
         return "Utente"
