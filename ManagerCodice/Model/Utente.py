@@ -1,4 +1,4 @@
-from Model import Scheda
+from Model import Scheda, Appunti
 
 class Utente:
     def __init__(self):
@@ -6,6 +6,7 @@ class Utente:
         self.nomeUtente = ""
         self.password = ""
         self.personaggio = Scheda.Scheda()
+        self.appunto = Appunti.Appunti()
         self.isMaster = False
 
     def getId(self):

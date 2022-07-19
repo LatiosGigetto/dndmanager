@@ -1,10 +1,10 @@
-import random, os, Accesso
+import os
+import random, pickle, Accesso
 from Model import Utilities,Utente
 
 class Master:
 
     utente = Utente.Utente()  # creazione dell'oggetto ridondante perché è il costruttore che lo farà poi (parte da rivedere)
-
     def __init__(self, utente):
         self.utente = utente
     # TODO Python merda
@@ -19,25 +19,37 @@ class Master:
         self.utente.setPassword(self, password)
         self.utente.setId(self, id)
 
-    def creaAppunti(self):
-        #TODO
-        pass
+    def creaAppunti(self, nome, immagine, informazioni):
+        self.utente.appunto.setNome(nome)
+        self.utente.appunto.setImmagine(immagine)
+        self.utente.appunto.setInformazioni(informazioni)
+        self.salvaAppunti()
 
-    def aggiornaAppunti(self):
-        #TODO
-        pass
+    def aggiornaAppunti(self, immagine, informazioni):
+        #TODO controllare il funzionamento
+        if (self.utente.appunto.getImmagine() != immagine):
+            self.utente.appunti.setImmagine(immagine)
+        else:
+            return "Already up-to ì-date"
+        if (self.utente.appunto.getInformazioni() != informazioni):
+            self.utente.appunti.setInformazioni(informazioni)
+        else:
+            return "Already up-to-date"
+        self.salvaAppunti()
 
     def visualizzaAppunti(self):
-        #TODO
-        pass
+        return self.utente.appunto
 
     def salvaAppunti(self):
-        #TODO
-        pass
+        with open(self.utente.appunto.getNome(), "wb") as f:
+            pickle.dump(self.utente.appunto, f, pickle.HIGHEST_PROTOCOL)
 
     def eliminaAppunti(self):
-        #TODO
-        pass
+        if os.path.isfile("Appunto.pickle"):
+            os.remove("Appunto.pickle")
+        else:
+            return "File not found"
+
 
     def pubblicaAppunti(self):
         #TODO
