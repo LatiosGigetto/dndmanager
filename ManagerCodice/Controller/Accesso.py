@@ -2,7 +2,7 @@ import os.path
 import pickle
 from random import randint
 
-from Model.Utente import Utente
+from Model import Utente
 
 
 class Accesso:
@@ -13,7 +13,8 @@ class Accesso:
     def caricaListaUtenti(self):
         if os.path.isfile("listaUtenti.pickle"):
             with open("listaUtenti.pickle", "rb") as f:
-                self.listaUtenti.pickle.load(f)
+                self.listaUtenti = pickle.load(f)
+
         return
 
     def salvaListaUtenti(self):
@@ -22,24 +23,28 @@ class Accesso:
 
     def registrazione(self, nomeUtente, password):
         self.caricaListaUtenti()
-        for i in self.listaUtenti:
-            if nomeUtente == i.nomeUtente:
-                return False
-            else:
-                continue
+        if self.listaUtenti:
+            for i in self.listaUtenti:
+                if nomeUtente == i.nomeUtente:
+                    print("I valori sono:", nomeUtente, password)
+                    return False
         id = str(randint(1000, 9999))
         i = 0
         while i < len(self.listaUtenti):
-            if self.listaUtenti(i).id == id:
-               id = str(randint(1000, 9999))
-               i = 0
+            if self.listaUtenti[i].id == id:
+                id = str(randint(1000, 9999))
+                i = 0
+                print("palle2")
             else:
                 i += 1
                 continue
-            utente = Utente(nomeUtente, password, id)
-            self.listaUtenti.append(utente)
-            self.salvaListaUtenti()
-            return True
+        utente = Utente.Utente()
+        utente.setNomeUtente(nomeUtente)
+        utente.setPassword(password)
+        utente.setId(id)
+        self.listaUtenti.append(utente)
+        self.salvaListaUtenti()
+        return True
 
     def login(self, nomeUtente, password):
         self.caricaListaUtenti()
@@ -47,18 +52,15 @@ class Accesso:
             if nomeUtente == i.nomeUtente:
                 if password == i.password:
                     if i.isMaster:
-                        print()
-                        # TODO Inserisci apertura vista Master
+                        return "Master"
                     else:
-                        print()
-                        # TODO Inserisci apertura vista Giocatore
+                        print("arrivato")
+                        return "Giocatore"
                 else:
                     print("Password errata.")
-                    return False
-            else:
-                continue
-            print("Nome utente non trovato")
-            return False
+                    return "Password"
+        print("Nome utente non trovato")
+        return "Utente"
 
 
 

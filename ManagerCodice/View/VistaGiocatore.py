@@ -13,6 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Form(object):
     def setupUi(self, Form):
+        print("lmanzo")
         Form.setObjectName("Form")
         Form.resize(566, 450)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
@@ -69,11 +70,5 @@ class Ui_Form(object):
         self.pushButton_5.setText(_translate("Form", "Note"))
 
 
-if __name__ == "VistaAccesso":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
+
+

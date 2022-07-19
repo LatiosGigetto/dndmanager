@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 if __name__ == "__main__":
     vistaAccesso = VistaAccesso
     app = QApplication(sys.argv)
-    Login = QMainWindow()
+    login = QMainWindow()
     ui = VistaAccesso.Ui_Login()
-    ui.setupUi(Login)
-    Login.show()
+    ui.setupUi(login)
+    login.show()
     sys.exit(app.exec_())
 
