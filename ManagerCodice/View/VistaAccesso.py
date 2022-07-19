@@ -13,9 +13,13 @@ from PyQt5.QtWidgets import QMessageBox
 
 from Controller import Accesso
 from View import VistaGiocatore
+from Model import Utente
 
 
 class Ui_Login(object):
+
+    windowList = []
+
     def setupUi(self, Login):
         self.gestoreAccesso = Accesso.Accesso()
         Login.setObjectName("Login")
@@ -84,15 +88,12 @@ class Ui_Login(object):
             nomeVuoto.exec_()
             return
         valorePassword = self.lePassword.text()
-        if self.gestoreAccesso.registrazione(valoreNomeUtente, valorePassword):
-            app = QtWidgets.QApplication(sys.argv)
-            form = QtWidgets.QMainWindow()
+        nuovoUtente = self.gestoreAccesso.registrazione(valoreNomeUtente, valorePassword)
+        if nuovoUtente:
             ui = VistaGiocatore.Ui_Form()
-            ui.setupUi(form)
-            form.show()
-            sys.exit(app.exec_())
+            ui.setupUi(self.nextWindow, nuovoUtente)
+            self.nextWindow.show()
         else:
-            print("palleculo")
             popup = QMessageBox()
             popup.setText("Nome utente già esistente")
             popup.setWindowTitle("Errore!")
@@ -113,23 +114,24 @@ class Ui_Login(object):
             nomeVuoto.exec_()
             return
         valorePassword = self.lePassword.text()
-        match self.gestoreAccesso.login(valoreNomeUtente, valorePassword):
-            case "Giocatore":
-                app = QtWidgets.QApplication(sys.argv)
-                form = QtWidgets.QMainWindow()
-                ui = VistaGiocatore.Ui_Form()
-                ui.setupUi(form)
-                form.show()
-                sys.exit(app.exec_())
-            case "Master":
-                pass
-            case "Password":
-                popup = QMessageBox()
-                popup.setText("Password errata")
-                popup.setWindowTitle("Errore!")
-                popup.exec_()
-            case "Utente":
-                popup = QMessageBox()
-                popup.setText("Nome utente non trovato")
-                popup.setWindowTitle("Errore!")
-                popup.exec_()
+        currentUtente = self.gestoreAccesso.login(valoreNomeUtente, valorePassword)
+        if type(currentUtente) is Utente.Utente:
+            windowGiocatore = QtWidgets.QWidget()
+            self.windowList.append(windowGiocatore)
+            ui = VistaGiocatore.Ui_Form()
+            ui.setupUi(windowGiocatore, currentUtente)
+            windowGiocatore.show()
+        else:
+            match currentUtente:
+                case "Master":
+                    pass
+                case "Password":
+                    popup = QMessageBox()
+                    popup.setText("Password errata")
+                    popup.setWindowTitle("Errore!")
+                    popup.exec_()
+                case "Utente":
+                    popup = QMessageBox()
+                    popup.setText("Nome utente non trovato")
+                    popup.setWindowTitle("Errore!")
+                    popup.exec_()
