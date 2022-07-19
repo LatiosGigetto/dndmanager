@@ -1,5 +1,6 @@
-import pickle, random, Accesso
+import pickle, random
 from Model import Utente, Utilities
+from Controller import Accesso
 
 
 class Giocatore:
