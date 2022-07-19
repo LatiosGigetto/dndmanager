@@ -1,4 +1,4 @@
-import random, os
+import random, os, Accesso
 from Model import Utilities,Utente
 
 class Master:
@@ -10,6 +10,11 @@ class Master:
     # TODO Python merda
 
     def cambioCredenziali(self, nomeUtente, password, id):
+        self.accesso = Accesso.Accesso()
+        for x in self.accesso.listaUtenti:
+            if (nomeUtente == x):
+                print("nome utente già esistente")
+                return
         self.utente.setNomeUtente(self, nomeUtente)
         self.utente.setPassword(self, password)
         self.utente.setId(self, id)

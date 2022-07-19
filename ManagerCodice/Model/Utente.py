@@ -17,8 +17,7 @@ class Utente:
         return self.nomeUtente
 
     def setNomeUtente(self, nomeUtente):
-        #TODO
-        pass
+        self.nomeUtente = nomeUtente
 
     def getPassword(self):
         return self.password

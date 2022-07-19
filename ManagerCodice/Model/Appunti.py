@@ -18,8 +18,7 @@ class Appunti:
         return self.informazioni
 
     def setInformazioni(self, informazioni):
-        #TODO
-        pass
+        self.informazioni = informazioni
 
     def getNome(self):
         return self.nome

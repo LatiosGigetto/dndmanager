@@ -1,4 +1,4 @@
-import pickle, random
+import pickle, random, Accesso
 from Model import Utente, Utilities
 
 
@@ -11,6 +11,11 @@ class Giocatore:
     # TODO Python merda
 
     def cambioCredenziali(self, nomeUtente, password, id):
+        self.accesso = Accesso.Accesso()
+        for x in self.accesso.listaUtenti:
+            if (nomeUtente == x):
+                print("nome utente già esistente")
+                return
         self.utente.setNomeUtente(self, nomeUtente)
         self.utente.setPassword(self, password)
         self.utente.setId(self, id)
