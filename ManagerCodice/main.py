@@ -4,7 +4,6 @@ from View import VistaAccesso
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 if __name__ == "__main__":
-    import sys
     vistaAccesso = VistaAccesso
     app = QApplication(sys.argv)
     Login = QMainWindow()

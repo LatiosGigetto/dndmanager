@@ -10,7 +10,6 @@ class Accesso:
     def __init__(self):
         self.listaUtenti = []
 
-
     def caricaListaUtenti(self):
         if os.path.isfile("listaUtenti.pickle"):
             with open("listaUtenti.pickle", "rb") as f:

@@ -9,10 +9,13 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from Controller import Accesso
+from View import VistaGiocatore
 
 
 class Ui_Login(object):
     def setupUi(self, Login):
+        self.gestoreAccesso = Accesso.Accesso()
         Login.setObjectName("Login")
         Login.resize(513, 228)
         Login.setMinimumSize(QtCore.QSize(513, 228))
@@ -26,24 +29,25 @@ class Ui_Login(object):
         self.verticalLayout_6.addWidget(self.label)
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.gridLayout_3.addWidget(self.pushButton_3, 4, 1, 1, 1)
-        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setObjectName("lineEdit")
-        self.gridLayout_3.addWidget(self.lineEdit, 1, 1, 1, 1)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.gridLayout_3.addWidget(self.lineEdit_2, 3, 1, 1, 1)
+        self.buttonRegistrazione = QtWidgets.QPushButton(self.centralwidget)
+        self.buttonRegistrazione.setObjectName("buttonRegistrazione")
+        self.gridLayout_3.addWidget(self.buttonRegistrazione, 4, 1, 1, 1)
+        self.buttonRegistrazione.clicked.connect(self.registrazione)
+        self.leNomeUtente = QtWidgets.QLineEdit(self.centralwidget)
+        self.leNomeUtente.setObjectName("leNomeUtente")
+        self.gridLayout_3.addWidget(self.leNomeUtente, 1, 1, 1, 1)
+        self.lePassword = QtWidgets.QLineEdit(self.centralwidget)
+        self.lePassword.setObjectName("lePassword")
+        self.gridLayout_3.addWidget(self.lePassword, 3, 1, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setObjectName("label_2")
         self.gridLayout_3.addWidget(self.label_2, 1, 0, 1, 1)
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setObjectName("label_3")
         self.gridLayout_3.addWidget(self.label_3, 3, 0, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout_3.addWidget(self.pushButton, 5, 1, 1, 1)
+        self.buttonLogin = QtWidgets.QPushButton(self.centralwidget)
+        self.buttonLogin.setObjectName("buttonLogin")
+        self.gridLayout_3.addWidget(self.buttonLogin, 5, 1, 1, 1)
         self.verticalLayout_6.addLayout(self.gridLayout_3)
         Login.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Login)
@@ -57,8 +61,17 @@ class Ui_Login(object):
         _translate = QtCore.QCoreApplication.translate
         Login.setWindowTitle(_translate("Login", "Registrazione"))
         self.label.setText(_translate("Login", "<html><head/><body><p><span style=\" font-size:12pt;\">Inserire nome utente e password per accedere.</span></p></body></html>"))
-        self.pushButton_3.setText(_translate("Login", "Registrazione"))
+        self.buttonRegistrazione.setText(_translate("Login", "Registrazione"))
         self.label_2.setText(_translate("Login", "<html><head/><body><p><span style=\" font-size:12pt;\">Nome Utente:</span></p></body></html>"))
         self.label_3.setText(_translate("Login", "<html><head/><body><p><span style=\" font-size:12pt;\">Password:</span></p></body></html>"))
-        self.pushButton.setText(_translate("Login", "Log"))
+        self.buttonLogin.setText(_translate("Login", "Login"))
+
+    def registrazione(self):
+        valoreNomeUtente = self.leNomeUtente.text()
+        valorePassword = self.lePassword.text()
+        if self.gestoreAccesso.registrazione(valoreNomeUtente, valorePassword):
+            vistaGiocatore = VistaGiocatore.Ui_Form
+            vistaGiocatore.setupUi()
+        else:
+            print("palle")
 
