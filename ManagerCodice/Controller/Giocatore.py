@@ -114,11 +114,11 @@ class Giocatore:
         self.salvaScheda()
 
     def visualizzaScheda(self):
-        with open(self.percorso+self.utente.personaggio, "rb") as f:
+        with open(self.percorso+self.utente.personaggio+".pickle", "rb") as f:
             return pickle.load(f)
 
     def salvaScheda(self):
-        with open(self.percorso+self.utente.personaggio.getNome(), "wb") as f:
+        with open(self.percorso+self.utente.personaggio.getNome()+".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def tiraDado(self, numeroFacce, numeroLanci):
@@ -130,11 +130,11 @@ class Giocatore:
         self.salvaNote()
 
     def visualizzaNote(self):
-        with open(self.percorso+self.utente.personaggio.getSpazioNote(), "rb") as f:
+        with open(self.percorso+self.utente.personaggio.getSpazioNote()+".pickle", "rb") as f:
             return pickle.load(f)
 
     def salvaNote(self):
-        with open(self.percorso+self.utente.personaggio.getSpazioNote(), "wb") as f:
+        with open(self.percorso+self.utente.personaggio.getSpazioNote()+".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio.getSpazioNote(), f, pickle.HIGHEST_PROTOCOL)
 
     def visualizzaDispense(self):
