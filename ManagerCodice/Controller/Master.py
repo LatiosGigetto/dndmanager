@@ -50,11 +50,11 @@ class Master:
         os.remove(self.trovaAppunti(nomeAppunto)) #TODO da verificare correttezza
 
     def salvaAppunti(self):
-        with open("\InsiemeAppunti\\" + self.appunto.getNome(), "wb") as f: #TODo da verificare correttezza
+        with open("Appunti/" + self.appunto.getNome() + ".pickle", "wb") as f: #TODo da verificare correttezza
             pickle.dump(self.appunto, f, pickle.HIGHEST_PROTOCOL)
 
     def caricaAppunti(self):
-        if os.path.isfile(self.appunto.getNome() + ".pickle"): #TODO da verificare correttezza
+        if os.path.isfile("Appunti/" + self.appunto.getNome() + ".pickle"): #TODO da verificare correttezza
             with open(self.appunto.getNome(), "rb") as f:
                 self.listaAppunti = pickle.load(f)
 
