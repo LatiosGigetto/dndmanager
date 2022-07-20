@@ -14,7 +14,6 @@ class Accesso:
         if os.path.isfile("listaUtenti.pickle"):
             with open("listaUtenti.pickle", "rb") as f:
                 self.listaUtenti = pickle.load(f)
-
         return
 
     def salvaListaUtenti(self):
@@ -34,7 +33,6 @@ class Accesso:
             if self.listaUtenti[i].id == id:
                 id = str(randint(1000, 9999))
                 i = 0
-                print("palle2")
             else:
                 i += 1
                 continue

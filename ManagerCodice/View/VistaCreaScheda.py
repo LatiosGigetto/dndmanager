@@ -328,17 +328,27 @@ class Ui_MainWindow(object):
 
     def creaScheda(self):
         punteggi = {}
-        if (
-                self.lineNome.text() or self.lineCA.text() or self.linePF.text() or self.lineForza.text() or self.lineDestr.text()
-                or self.lineCost.text() or self.lineInt.text() or self.lineSagg.text() or self.lineCar.text() or self.sceltaLivello.currentText()
-                or self.sceltaTS1.currentText() or self.sceltaAbi1.currentText() or self.sceltaAbi2.currentText() or self.sceltaClasse.currentText()) == "":
+        print("culone")
+        if not (self.lineNome.text() and self.lineCA.text() and self.linePF.text() and self.lineForza.text() and self.lineDestr.text() \
+                and self.lineCost.text() and self.lineInt.text() and self.lineSagg.text() and self.lineCar.text()):
             popup = QtWidgets.QMessageBox()
             popup.setText("Inserisci tutti i parametri")
             popup.setWindowTitle("Errore")
             popup.exec_()
-        else:
-            print("palle")
-            punteggi = {
+            return
+        if self.sceltaAbi1.currentText() == self.sceltaAbi2.currentText():
+            popup = QtWidgets.QMessageBox()
+            popup.setText("Scegli due abilità differenti")
+            popup.setWindowTitle("Errore")
+            popup.exec_()
+            return
+        if self.sceltaTS1.currentText() == self.sceltaTS2.currentText():
+            popup = QtWidgets.QMessageBox()
+            popup.setText("Scegli due tiri salvezza diversi")
+            popup.setWindowTitle("Errore")
+            popup.exec_()
+            return
+        punteggi = {
                 "Forza": int(self.lineForza.text()),
                 "Destrezza": int(self.lineDestr.text()),
                 "Costituzione": int(self.lineCost.text()),
@@ -346,7 +356,6 @@ class Ui_MainWindow(object):
                 "Saggezza": int(self.lineSagg.text()),
                 "Carisma": int(self.lineCar.text())
             }
-        print("palle3")
         self.gestoreGiocatore.creaScheda(self.lineNome.text(), punteggi, self.sceltaClasse.currentText(),
                                             int(self.sceltaLivello.currentText()), int(self.linePF.text()),
                                             int(self.lineCA.text()), self.sceltaTS1.currentText(),

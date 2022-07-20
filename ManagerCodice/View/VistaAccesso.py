@@ -89,7 +89,7 @@ class Ui_Login(object):
             return
         valorePassword = self.lePassword.text()
         nuovoUtente = self.gestoreAccesso.registrazione(valoreNomeUtente, valorePassword)
-        if nuovoUtente:
+        if type(nuovoUtente) is Utente.Utente:
             windowGiocatore = QtWidgets.QWidget()
             self.windowList.append(windowGiocatore)
             self.ui = VistaGiocatore.Ui_Form()
@@ -118,6 +118,7 @@ class Ui_Login(object):
         valorePassword = self.lePassword.text()
         currentUtente = self.gestoreAccesso.login(valoreNomeUtente, valorePassword)
         if type(currentUtente) is Utente.Utente:
+            print("culo")
             windowGiocatore = QtWidgets.QWidget()
             self.windowList.append(windowGiocatore)
             self.ui = VistaGiocatore.Ui_Form()
