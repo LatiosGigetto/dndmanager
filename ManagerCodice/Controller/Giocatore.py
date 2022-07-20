@@ -8,6 +8,7 @@ class Giocatore:
     def __init__(self, utente:Utente.Utente):
         self.percorso = "Dati-giocatore/"
         self.utente = utente
+        self.caricaScheda()
     # TODO Python merda
 
     def cambioCredenziali(self, nomeUtente, password, id):
@@ -114,11 +115,14 @@ class Giocatore:
         self.salvaScheda()
 
     def visualizzaScheda(self):
-        with open(self.percorso+self.utente.personaggio+".pickle", "rb") as f:
-            return pickle.load(f)
+            return self.utente.personaggio
+
+    def caricaScheda(self):
+        with open("Schede/" + self.utente.getNomeUtente() + ".pickle", "rb") as f:
+            self.utente.personaggio = pickle.load(f)
 
     def salvaScheda(self):
-        with open(self.percorso+self.utente.personaggio.getNome()+".pickle", "wb") as f:
+        with open("Schede/" + self.utente.getNomeUtente() + ".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def tiraDado(self, numeroFacce, numeroLanci):

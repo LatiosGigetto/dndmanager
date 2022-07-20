@@ -10,11 +10,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Controller import Giocatore
-from View import VistaCreaScheda, VistaAccesso
+from View import VistaCreaScheda, VistaAccesso, VistaVisualizzaScheda
 from Model import Utente
 
 class Ui_Form(object):
-    def setupUi(self, Form, currentUtente:Utente.Utente):
+    def setupUi(self, Form, currentUtente):
         self.gestoreGiocatore = Giocatore.Giocatore(currentUtente)
         Form.setObjectName("DnD Manager")
         Form.resize(566, 450)
@@ -35,9 +35,9 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.buttonCreaScheda, 1, 0, 1, 1)
         self.buttonCreaScheda.clicked.connect(self.goCreaScheda)
         self.buttonVisualizzaScheda = QtWidgets.QPushButton(Form)
-        self.buttonVisualizzaScheda.setEnabled(True)
         self.buttonVisualizzaScheda.setObjectName("pushButton")
         self.gridLayout.addWidget(self.buttonVisualizzaScheda, 1, 1, 1, 1)
+        self.buttonVisualizzaScheda.clicked.connect(self.goVisualizzaScheda)
         self.buttonModificaScheda = QtWidgets.QPushButton(Form)
         self.buttonModificaScheda.setEnabled(True)
         self.buttonModificaScheda.setObjectName("pushButton_3")
@@ -74,23 +74,30 @@ class Ui_Form(object):
 
 
     def goCreaScheda(self):
-        print("zioperone")
-        #if self.gestoreGiocatore.utente.personaggio.getNome:
-            #print("pallone")
-            #popup = QtWidgets.QMessageBox()
-            #popup.setText("Personaggio già esisente")
-            #popup.setWindowTitle("Errore")
-            #popup.exec_()
-        print("ziopera")
-        ui = VistaCreaScheda.Ui_MainWindow()
+        if self.gestoreGiocatore.utente.personaggio.getNome() != "":
+            popup = QtWidgets.QMessageBox()
+            popup.setText("Personaggio già esisente")
+            popup.setWindowTitle("Errore")
+            popup.exec_()
+            return
+        self.ui = VistaCreaScheda.Ui_MainWindow()
         windowCreaScheda = QtWidgets.QMainWindow()
         VistaAccesso.Ui_Login.windowList.append(windowCreaScheda)
-        ui.setupUi(windowCreaScheda, self.gestoreGiocatore)
-        print("culone")
+        self.ui.setupUi(windowCreaScheda, self.gestoreGiocatore)
         windowCreaScheda.show()
-        return True
 
-
+    def goVisualizzaScheda(self):
+        if self.gestoreGiocatore.utente.personaggio.getNome() == "":
+            popup = QtWidgets.QMessageBox()
+            popup.setText("Devi prima creare il personaggio")
+            popup.setWindowTitle("Errore")
+            popup.exec_()
+            return
+        self.ui = VistaVisualizzaScheda.Ui_Scheda()
+        windowVisScheda = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowVisScheda)
+        self.ui.setupUi(windowVisScheda, self.gestoreGiocatore)
+        windowVisScheda.show()
 
 
 

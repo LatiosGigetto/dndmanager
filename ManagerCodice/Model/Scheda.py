@@ -87,10 +87,10 @@ class Scheda:
     def setPuntiFerita(self, puntiFerita):
         self.puntiFerita = puntiFerita
 
-    def getSalvezza(self):
+    def getTiriSalvezza(self):
         return self.salvezza
 
-    def setSalvezza(self, salvezza):
+    def setTiriSalvezza(self, salvezza):
         self.salvezza = salvezza
 
     def getSpazioNote(self):
