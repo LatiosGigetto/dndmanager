@@ -4,7 +4,7 @@ from Model import Utilities,Utente, Appunti
 
 class Master:
 
-    utente = Utente.Utente()
+    utente = Utente.Utente()  #
     appunto = Appunti.Appunti()
 
     def __init__(self, utente, appunto):
@@ -30,7 +30,7 @@ class Master:
         self.caricaAppunti()
 
     def visualizzaAppunti(self, nomeAppunto):
-        return self.trovaAppunti(nomeAppunto) #TODO da verificare correttezza
+        return self.trovaAppunti(nomeAppunto)
 
     def aggiornaAppunti(self,nomeAppunto, immagine, informazioni):
         if nomeAppunto == self.trovaAppunti(nomeAppunto): #TODO da verificare correttezza
@@ -50,11 +50,11 @@ class Master:
         os.remove(self.trovaAppunti(nomeAppunto)) #TODO da verificare correttezza
 
     def salvaAppunti(self):
-        with open("Appunti/" + self.appunto.getNome() + ".pickle", "wb") as f: #TODo da verificare correttezza
+        with open("InsiemeAppunti/" + self.appunto.getNome(), "wb") as f: #TODo da verificare correttezza
             pickle.dump(self.appunto, f, pickle.HIGHEST_PROTOCOL)
 
     def caricaAppunti(self):
-        if os.path.isfile("Appunti/" + self.appunto.getNome() + ".pickle"): #TODO da verificare correttezza
+        if os.path.isfile(self.appunto.getNome() + ".pickle"): #TODO da verificare correttezza
             with open(self.appunto.getNome(), "rb") as f:
                 self.listaAppunti = pickle.load(f)
 
