@@ -9,10 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from Controller import Giocatore
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, gestoreGiocatore:Giocatore.Giocatore):
+        self.gestoreGiocatore = gestoreGiocatore
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(332, 363)
         MainWindow.setMinimumSize(QtCore.QSize(332, 363))
@@ -60,6 +62,7 @@ class Ui_MainWindow(object):
         self.buttonTira = QtWidgets.QPushButton(self.centralwidget)
         self.buttonTira.setObjectName("buttonTira")
         self.gridLayout.addWidget(self.buttonTira, 1, 0, 1, 2)
+        self.buttonTira.clicked.connect(self.tiraDadi)
         self.layoutScelta.addLayout(self.gridLayout)
         self.verticalLayout_2.addLayout(self.layoutScelta)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -85,15 +88,15 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "DnD Manager"))
         self.dadoTesto.setText(_translate("MainWindow", "Scegli il numero e il tipo di dadi da lanciare:"))
-        self.tipoDado.setItemText(0, _translate("MainWindow", "d4"))
-        self.tipoDado.setItemText(1, _translate("MainWindow", "d6"))
-        self.tipoDado.setItemText(2, _translate("MainWindow", "d8"))
-        self.tipoDado.setItemText(3, _translate("MainWindow", "d10"))
-        self.tipoDado.setItemText(4, _translate("MainWindow", "d12"))
-        self.tipoDado.setItemText(5, _translate("MainWindow", "d20"))
-        self.tipoDado.setItemText(6, _translate("MainWindow", "d100"))
+        self.tipoDado.setItemText(0, _translate("MainWindow", "4"))
+        self.tipoDado.setItemText(1, _translate("MainWindow", "6"))
+        self.tipoDado.setItemText(2, _translate("MainWindow", "8"))
+        self.tipoDado.setItemText(3, _translate("MainWindow", "10"))
+        self.tipoDado.setItemText(4, _translate("MainWindow", "12"))
+        self.tipoDado.setItemText(5, _translate("MainWindow", "20"))
+        self.tipoDado.setItemText(6, _translate("MainWindow", "100"))
         self.numDadi.setItemText(0, _translate("MainWindow", "1"))
         self.numDadi.setItemText(1, _translate("MainWindow", "2"))
         self.numDadi.setItemText(2, _translate("MainWindow", "3"))
@@ -106,3 +109,7 @@ class Ui_MainWindow(object):
         self.numDadi.setItemText(9, _translate("MainWindow", "10"))
         self.buttonTira.setText(_translate("MainWindow", "Tira"))
         self.labelRisultato.setText(_translate("MainWindow", "Risultato:"))
+
+    def tiraDadi(self):
+        self.lineRisultato.setText(self.gestoreGiocatore.tiraDado(self.tipoDado.currentText(), self.numDadi.currentText()))
+

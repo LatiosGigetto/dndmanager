@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Controller import Giocatore
-from View import VistaCreaScheda, VistaAccesso, VistaVisualizzaScheda
+from View import VistaAccesso, VistaVisualizzaScheda, VistaCreaScheda, VistaDado, VistaCambioCredenziali
 from Model import Utente
 
 class Ui_Form(object):
@@ -30,6 +30,7 @@ class Ui_Form(object):
         self.buttonCambiaCredenziali.setEnabled(True)
         self.buttonCambiaCredenziali.setObjectName("pushButton_7")
         self.gridLayout.addWidget(self.buttonCambiaCredenziali, 0, 1, 1, 1)
+        self.buttonCambiaCredenziali.clicked.connect(self.goCambioCredenziali)
         self.buttonCreaScheda = QtWidgets.QPushButton(Form)
         self.buttonCreaScheda.setObjectName("buttonCreaScheda")
         self.gridLayout.addWidget(self.buttonCreaScheda, 1, 0, 1, 1)
@@ -50,6 +51,7 @@ class Ui_Form(object):
         self.buttonTiraDadi.setEnabled(True)
         self.buttonTiraDadi.setObjectName("pushButton_4")
         self.gridLayout.addWidget(self.buttonTiraDadi, 2, 1, 1, 1)
+        self.buttonTiraDadi.clicked.connect(self.goDadi)
         self.buttonNote = QtWidgets.QPushButton(Form)
         self.buttonNote.setEnabled(True)
         self.buttonNote.setObjectName("pushButton_5")
@@ -69,7 +71,7 @@ class Ui_Form(object):
         self.buttonVisualizzaScheda.setText(_translate("Form", "Visualizza Scheda"))
         self.buttonModificaScheda.setText(_translate("Form", "Modifica Scheda"))
         self.buttonVisualizzaDispense.setText(_translate("Form", "Visualizza Dispense"))
-        self.buttonTiraDadi.setText(_translate("Form", "Tira i dadi"))
+        self.buttonTiraDadi.setText(_translate("Form", "Tira Dadi"))
         self.buttonNote.setText(_translate("Form", "Note"))
 
 
@@ -100,4 +102,16 @@ class Ui_Form(object):
         windowVisScheda.show()
 
 
+    def goCambioCredenziali(self):
+        self.ui = VistaCambioCredenziali.Ui_Form()
+        windowCredenziali = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowCredenziali)
+        self.ui.setupUi(windowCredenziali, self.gestoreGiocatore.utente)
+        windowCredenziali.show()
 
+    def goDadi(self):
+        self.ui = VistaDado.Ui_MainWindow()
+        windowDado = QtWidgets.QMainWindow()
+        VistaAccesso.Ui_Login.windowList.append(windowDado)
+        self.ui.setupUi(windowDado, self.gestoreGiocatore)
+        windowDado.show()
