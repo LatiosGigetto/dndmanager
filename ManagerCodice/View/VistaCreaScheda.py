@@ -15,10 +15,12 @@ from Controller import Giocatore
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, gestoreGiocatore):
         self.gestoreGiocatore = gestoreGiocatore
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(651, 812)
-        MainWindow.setMinimumSize(QtCore.QSize(651, 812))
-        MainWindow.setMaximumSize(QtCore.QSize(651, 812))
+        self.MainWindow = MainWindow
+        self.MainWindow.setObjectName("MainWindow")
+        self.MainWindow.setWindowTitle("Crezione Scheda")
+        self.MainWindow.resize(651, 812)
+        self.MainWindow.setMinimumSize(QtCore.QSize(651, 812))
+        self.MainWindow.setMaximumSize(QtCore.QSize(651, 812))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -219,14 +221,14 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.buttonConferma, 9, 0, 1, 1)
         self.buttonConferma.clicked.connect(self.creaScheda)
         self.verticalLayout.addLayout(self.gridLayout_2)
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.MainWindow.setWindowTitle(_translate("MainWindow", "Creazione Scheda"))
         self.label.setText(_translate("MainWindow", "Inserisci i parametri del personaggio:"))
         self.labelSag.setText(_translate("MainWindow", "Saggezza"))
         self.labelInt.setText(_translate("MainWindow", "Intelligenza"))
@@ -324,28 +326,37 @@ class Ui_MainWindow(object):
         self.label_12.setText(_translate("MainWindow", "Tiri Salvezza"))
         self.buttonConferma.setText(_translate("MainWindow", "Conferma"))
 
-
     def creaScheda(self):
-        if self.lineNome or self.lineCA or self.linePF or self.lineForza or self.lineDestr or self.lineCost or \
-        self.lineInt or self.lineSagg or self.lineCar or self.sceltaLivello or self.sceltaTS1 or self.sceltaAbi1 \
-        or self.sceltaAbi2 or self.sceltaClasse == "":
+        punteggi = {}
+        if (
+                self.lineNome.text() or self.lineCA.text() or self.linePF.text() or self.lineForza.text() or self.lineDestr.text()
+                or self.lineCost.text() or self.lineInt.text() or self.lineSagg.text() or self.lineCar.text() or self.sceltaLivello.currentText()
+                or self.sceltaTS1.currentText() or self.sceltaAbi1.currentText() or self.sceltaAbi2.currentText() or self.sceltaClasse.currentText()) == "":
             popup = QtWidgets.QMessageBox()
             popup.setText("Inserisci tutti i parametri")
             popup.setWindowTitle("Errore")
             popup.exec_()
         else:
+            print("palle")
             punteggi = {
-                "Forza": self.lineForza,
-                "Destrezza": self.lineDestr,
-                "Costituzione": self.lineCost,
-                "Intelligenza": self.lineInt,
-                "Saggezza": self.lineSagg,
-                "Carisma": self.lineCar
+                "Forza": int(self.lineForza.text()),
+                "Destrezza": int(self.lineDestr.text()),
+                "Costituzione": int(self.lineCost.text()),
+                "Intelligenza": int(self.lineInt.text()),
+                "Saggezza": int(self.lineSagg.text()),
+                "Carisma": int(self.lineCar.text())
             }
-            if self.gestoreGiocatore.creaScheda(self.lineNome.text(), punteggi, self.sceltaClasse.currentText(), \
-            self.sceltaLivello.currentText(), self.linePF.text(), self.lineCA.text(), self.sceltaTS1.currentText(), \
-            self.sceltaTS2.currentText(), self.sceltaAbi1.currentText(), self.sceltaAbi2.currentText(), self.textEditStoria.toPlainText()):
-                popup = QtWidgets.QMessageBox()
-                popup.setText("Scheda creata con successo")
-                popup.setWindowTitle("DnD Manager")
-                popup.exec_()
+        print("palle3")
+        self.gestoreGiocatore.creaScheda(self.lineNome.text(), punteggi, self.sceltaClasse.currentText(),
+                                            int(self.sceltaLivello.currentText()), int(self.linePF.text()),
+                                            int(self.lineCA.text()), self.sceltaTS1.currentText(),
+                                            self.sceltaTS2.currentText(), self.sceltaAbi1.currentText(),
+                                            self.sceltaAbi2.currentText(), self.textEditStoria.toPlainText())
+        popup = QtWidgets.QMessageBox()
+        popup.setText("Scheda creata con successo")
+        popup.setWindowTitle("DnD Manager")
+        popup.exec_()
+        self.MainWindow.close()
+
+
+
