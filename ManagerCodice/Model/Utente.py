@@ -6,7 +6,6 @@ class Utente:
         self.nomeUtente = ""
         self.password = ""
         self.personaggio = Scheda.Scheda()
-        self.appunto = Appunti.Appunti()
         self.isMaster = False
 
     def getId(self):

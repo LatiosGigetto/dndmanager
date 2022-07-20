@@ -1,13 +1,16 @@
 import os
 import random, pickle, Accesso
-from Model import Utilities,Utente
+from Model import Utilities,Utente, Appunti
 
 class Master:
 
-    utente = Utente.Utente()  # creazione dell'oggetto ridondante perché è il costruttore che lo farà poi (parte da rivedere)
-    def __init__(self, utente):
+    utente = Utente.Utente()
+    appunto = Appunti.Appunti()
+
+    def __init__(self, utente, appunto):
         self.utente = utente
-    # TODO Python merda
+        self.appunto = appunto
+        self.listaAppunti = []
 
     def cambioCredenziali(self, nomeUtente, password, id):
         self.accesso = Accesso.Accesso()
@@ -20,38 +23,53 @@ class Master:
         self.utente.setId(self, id)
 
     def creaAppunti(self, nome, immagine, informazioni):
-        self.utente.appunto.setNome(nome)
-        self.utente.appunto.setImmagine(immagine)
-        self.utente.appunto.setInformazioni(informazioni)
+        self.appunto.setNome(nome)
+        self.appunto.setImmagine(immagine)
+        self.appunto.setInformazioni(informazioni)
         self.salvaAppunti()
+        self.caricaAppunti()
 
-    def aggiornaAppunti(self, immagine, informazioni):
-        #TODO controllare il funzionamento
-        if (self.utente.appunto.getImmagine() != immagine):
-            self.utente.appunti.setImmagine(immagine)
-        else:
-            return "Already up-to ì-date"
-        if (self.utente.appunto.getInformazioni() != informazioni):
-            self.utente.appunti.setInformazioni(informazioni)
-        else:
-            return "Already up-to-date"
-        self.salvaAppunti()
+    def visualizzaAppunti(self, nomeAppunto):
+        return self.trovaAppunti(nomeAppunto) #TODO da verificare correttezza
 
-    def visualizzaAppunti(self):
-        return self.utente.appunto
-
-    def salvaAppunti(self):
-        with open(self.utente.appunto.getNome(), "wb") as f:
-            pickle.dump(self.utente.appunto, f, pickle.HIGHEST_PROTOCOL)
-
-    def eliminaAppunti(self):
-        if os.path.isfile("Appunto.pickle"):
-            os.remove("Appunto.pickle")
-        else:
+    def aggiornaAppunti(self,nomeAppunto, immagine, informazioni):
+        if nomeAppunto == self.trovaAppunti(nomeAppunto): #TODO da verificare correttezza
+            if self.appunto.getImmagine() != immagine:
+                self.appunto.setImmagine(immagine)
+            else:
+                return "Already up-to-date"
+            if self.appunto.getInformazioni() != informazioni:
+                self.appunto.setInformazioni(informazioni)
+            else:
+                return "Already up-to-date"
+            self.salvaAppunti()
+            self.caricaAppunti()
             return "File not found"
 
+    def eliminaAppunti(self, nomeAppunto):
+        os.remove(self.trovaAppunti(nomeAppunto)) #TODO da verificare correttezza
+
+    def salvaAppunti(self):
+        with open("\InsiemeAppunti\\" + self.appunto.getNome(), "wb") as f: #TODo da verificare correttezza
+            pickle.dump(self.appunto, f, pickle.HIGHEST_PROTOCOL)
+
+    def caricaAppunti(self):
+        if os.path.isfile(self.appunto.getNome() + ".pickle"): #TODO da verificare correttezza
+            with open(self.appunto.getNome(), "rb") as f:
+                self.listaAppunti = pickle.load(f)
+
+    def trovaAppunti(self, nomeAppunto):
+        self.caricaAppunti()
+        for i in self.listaAppunti:
+            if nomeAppunto == i.getNome():
+                return self.listaAppunti[i]
+        return "File not found"
 
     def pubblicaAppunti(self):
+        #TODO
+        pass
+
+    def trovaPersonaggi(self):
         #TODO
         pass
 
