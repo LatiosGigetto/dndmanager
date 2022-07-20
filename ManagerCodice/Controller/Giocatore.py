@@ -6,6 +6,7 @@ from Controller import Accesso
 class Giocatore:
 
     def __init__(self, utente:Utente.Utente):
+        self.percorso = "Dati-giocatore/"
         self.utente = utente
     # TODO Python merda
 
@@ -113,11 +114,11 @@ class Giocatore:
         self.salvaScheda()
 
     def visualizzaScheda(self):
-        #TODO
-        return self.utente.personaggio
+        with open(self.percorso+self.utente.personaggio+".pickle", "rb") as f:
+            return pickle.load(f)
 
     def salvaScheda(self):
-        with open(self.utente.personaggio.getNome(), "wb") as f:
+        with open(self.percorso+self.utente.personaggio.getNome()+".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def tiraDado(self, numeroFacce, numeroLanci):
@@ -129,11 +130,12 @@ class Giocatore:
         self.salvaNote()
 
     def visualizzaNote(self):
-        return self.utente.personaggio.getSpazioNote()
+        with open(self.percorso+self.utente.personaggio.getSpazioNote()+".pickle", "rb") as f:
+            return pickle.load(f)
 
     def salvaNote(self):
-        with open(self.utente.personaggio.getSpazioNote(), "wb") as f:
-            pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
+        with open(self.percorso+self.utente.personaggio.getSpazioNote()+".pickle", "wb") as f:
+            pickle.dump(self.utente.personaggio.getSpazioNote(), f, pickle.HIGHEST_PROTOCOL)
 
     def visualizzaDispense(self):
         #TODO
