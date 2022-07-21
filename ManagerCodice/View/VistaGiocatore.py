@@ -10,12 +10,15 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Controller import Giocatore
-from View import VistaAccesso, VistaVisualizzaScheda, VistaCreaScheda, VistaDado, VistaCambioCredenziali
+from View import VistaAccesso, VistaVisualizzaScheda, VistaCreaScheda, VistaDado, VistaCambioCredenziali, \
+    VistaModificaScheda, VistaNote
 from Model import Utente
 
 class Ui_Form(object):
     def setupUi(self, Form, currentUtente):
         self.gestoreGiocatore = Giocatore.Giocatore(currentUtente)
+        if not self.gestoreGiocatore.caricaScheda():
+            self.gestoreGiocatore.utente.personaggio.setNome("")
         Form.setObjectName("DnD Manager")
         Form.resize(566, 450)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
@@ -43,6 +46,7 @@ class Ui_Form(object):
         self.buttonModificaScheda.setEnabled(True)
         self.buttonModificaScheda.setObjectName("pushButton_3")
         self.gridLayout.addWidget(self.buttonModificaScheda, 1, 2, 1, 1)
+        self.buttonModificaScheda.clicked.connect(self.goModificaScheda)
         self.buttonVisualizzaDispense = QtWidgets.QPushButton(Form)
         self.buttonVisualizzaDispense.setEnabled(True)
         self.buttonVisualizzaDispense.setObjectName("pushButton_6")
@@ -56,6 +60,7 @@ class Ui_Form(object):
         self.buttonNote.setEnabled(True)
         self.buttonNote.setObjectName("pushButton_5")
         self.gridLayout.addWidget(self.buttonNote, 2, 2, 1, 1)
+        self.buttonNote.clicked.connect(self.goSpazioNote)
         self.verticalLayout.addLayout(self.gridLayout)
 
         self.retranslateUi(Form)
@@ -115,3 +120,29 @@ class Ui_Form(object):
         VistaAccesso.Ui_Login.windowList.append(windowDado)
         self.ui.setupUi(windowDado, self.gestoreGiocatore)
         windowDado.show()
+
+    def goModificaScheda(self):
+        if self.gestoreGiocatore.utente.personaggio.getNome() == "":
+            popup = QtWidgets.QMessageBox()
+            popup.setText("Devi prima creare il personaggio")
+            popup.setWindowTitle("Errore")
+            popup.exec_()
+            return
+        self.ui = VistaModificaScheda.Ui_MainWindow()
+        windowModScheda = QtWidgets.QMainWindow()
+        VistaAccesso.Ui_Login.windowList.append(windowModScheda)
+        self.ui.setupUi(windowModScheda, self.gestoreGiocatore)
+        windowModScheda.show()
+
+    def goSpazioNote(self):
+        if self.gestoreGiocatore.utente.personaggio.getNome() == "":
+            popup = QtWidgets.QMessageBox()
+            popup.setText("Devi prima creare il personaggio")
+            popup.setWindowTitle("Errore")
+            popup.exec_()
+            return
+        self.ui = VistaNote.Ui_Form()
+        windowNote = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowNote)
+        self.ui.setupUi(windowNote, self.gestoreGiocatore)
+        windowNote.show()

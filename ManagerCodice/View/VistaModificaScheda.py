@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
         self.gestoreGiocatore = gestoreGiocatore
         self.MainWindow = MainWindow
         self.MainWindow.setObjectName("MainWindow")
-        self.MainWindow.setWindowTitle("Crezione Scheda")
+        self.MainWindow.setWindowTitle("Modifica Scheda")
         self.MainWindow.resize(651, 812)
         self.MainWindow.setMinimumSize(QtCore.QSize(651, 812))
         self.MainWindow.setMaximumSize(QtCore.QSize(651, 812))
@@ -239,6 +239,8 @@ class Ui_MainWindow(object):
         self.lineCA.setValidator(otherValidator)
         self.linePF.setValidator(otherValidator)
 
+        self.caricaScheda()
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.MainWindow.setWindowTitle(_translate("MainWindow", "Creazione Scheda"))
@@ -340,8 +342,6 @@ class Ui_MainWindow(object):
         self.buttonConferma.setText(_translate("MainWindow", "Conferma"))
 
     def creaScheda(self):
-        punteggi = {}
-        print("culone")
         if not (self.lineNome.text() and self.lineCA.text() and self.linePF.text() and self.lineForza.text() and self.lineDestr.text() \
                 and self.lineCost.text() and self.lineInt.text() and self.lineSagg.text() and self.lineCar.text()):
             popup = QtWidgets.QMessageBox()
@@ -387,10 +387,27 @@ class Ui_MainWindow(object):
                                             self.sceltaTS2.currentText(), self.sceltaAbi1.currentText(),
                                             self.sceltaAbi2.currentText(), self.textEditStoria.toPlainText())
         popup = QtWidgets.QMessageBox()
-        popup.setText("Scheda creata con successo")
+        popup.setText("Scheda modificata con successo")
         popup.setWindowTitle("DnD Manager")
         popup.exec_()
         self.MainWindow.close()
 
 
-
+    def caricaScheda(self):
+        personaggio = self.gestoreGiocatore.visualizzaScheda()
+        self.lineNome.setText(personaggio.nome)
+        self.lineForza.setText(str(personaggio.punteggi['Forza']))
+        self.lineDestr.setText(str(personaggio.punteggi["Destrezza"]))
+        self.lineCost.setText(str(personaggio.punteggi["Costituzione"]))
+        self.lineInt.setText(str(personaggio.punteggi["Intelligenza"]))
+        self.lineSagg.setText(str(personaggio.punteggi["Saggezza"]))
+        self.lineCar.setText(str(personaggio.punteggi["Carisma"]))
+        self.sceltaClasse.setCurrentText(personaggio.classe)
+        self.sceltaLivello.setCurrentText(str(personaggio.livello))
+        self.lineCA.setText(str(personaggio.armatura))
+        self.linePF.setText(str(personaggio.puntiFerita))
+        # self.textTS1.setText(personaggio.nome)
+        # self.textTS2.setText(personaggio.nome)
+        # self.textAbi1.setText(personaggio.nome)
+        # self.textAbi2.setText(personaggio.nome)
+        self.textEditStoria.setText(personaggio.storia)

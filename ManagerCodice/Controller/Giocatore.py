@@ -16,16 +16,13 @@ class Giocatore:
         self.accesso.caricaListaUtenti()
         for x in self.accesso.listaUtenti:
             if nomeUtente == x.nomeUtente:
-                print("nome utente già esistente")
                 return False
         for i in self.accesso.listaUtenti:
             index = self.accesso.listaUtenti.index(i)
             if self.utente.nomeUtente == i.nomeUtente:
                 self.utente.setNomeUtente(nomeUtente)
                 self.utente.setPassword(password)
-                print("sborra")
                 self.accesso.listaUtenti[index] = self.utente
-                print("sborra")
         self.accesso.salvaListaUtenti()
         return True
 
@@ -74,58 +71,13 @@ class Giocatore:
         self.utente.personaggio.setStoria(storia)
         self.salvaScheda()
 
-    def aggiornaScheda(self, livello, punteggi, puntiFerita, armatura, tiroSalvezza1, tiroSalvezza2, abilita1, abilita2):
-        #TODO forse sarà da cambiare metodo
-        competenza = 0
-        if self.utente.personaggio.getLivello() != livello:
-            competenza = int((livello - 1) / 4 + 2)
-            self.utente.personaggio.setLivello(livello)
-        if self.utente.personaggio.getPunteggi() != punteggi:
-            self.utente.personaggio.setPunteggi(punteggi)
-            salvezza = {
-                "Forza": int(punteggi["Forza"] - 10 / 2),
-                "Destrezza": int(punteggi["Destrezza"] - 10 / 2),
-                "Costituzione": int(punteggi["Costituzione"] - 10 / 2),
-                "Intelligenza": int(punteggi["Intelligenza"] - 10 / 2),
-                "Saggezza": int(punteggi["Saggezza"] - 10 / 2),
-                "Carisma": int(punteggi["Carisma"] - 10 / 2)
-            }
-            salvezza[tiroSalvezza1] += competenza
-            salvezza[tiroSalvezza2] += competenza
-            abilita = {
-                "Acrobazia": int(punteggi["Destrezza"] - 10 / 2),
-                "Addestrare Animali": int(punteggi["Saggezza"] - 10 / 2),
-                "Arcano": int(punteggi["Intelligenza"] - 10 / 2),
-                "Atletica": int(punteggi["Forza"] - 10 / 2),
-                "Furtività": int(punteggi["Destrezza"] - 10 / 2),
-                "Indagare": int(punteggi["Intelligenza"] - 10 / 2),
-                "Inganno": int(punteggi["Carisma"] - 10 / 2),
-                "Intimidire": int(punteggi["Carisma"] - 10 / 2),
-                "Intrattenere": int(punteggi["Carisma"] - 10 / 2),
-                "Intuizione": int(punteggi["Saggezza"] - 10 / 2),
-                "Medicina": int(punteggi["Saggezza"] - 10 / 2),
-                "Natura": int(punteggi["Intelligenza"] - 10 / 2),
-                "Percezione": int(punteggi["Saggezza"] - 10 / 2),
-                "Persuasione": int(punteggi["Carisma"] - 10 / 2),
-                "Rapidità di Mano": int(punteggi["Destrezza"] - 10 / 2),
-                "Religione": int(punteggi["Intelligenza"] - 10 / 2),
-                "Sopravvivenza": int(punteggi["Saggezza"] - 10 / 2),
-                "Storia": int(punteggi["Intelligenza"] - 10 / 2)
-            }
-            abilita[abilita1] += competenza
-            abilita[abilita2] += competenza
-            self.utente.personaggio.setAbilita(abilita)
-            self.utente.personaggio.setTiriSalvezza(salvezza)
-        if self.utente.personaggio.getPuntiFerita() != puntiFerita:
-            self.utente.personaggio.setPuntiFerita(puntiFerita)
-        if self.utente.personaggio.getArmatura() != armatura:
-            self.utente.personaggio.setArmatura(armatura)
-        self.salvaScheda()
-
     def caricaScheda(self):
-        if os.path.isfile(self.utente.getId() + ".pickle"):
+        if os.path.isfile("Schede/" + self.utente.getId() + ".pickle"):
             with open("Schede/" + self.utente.getId() + ".pickle", "rb") as f:
                 self.utente.personaggio = pickle.load(f)
+                return True
+        else:
+            return False
 
     def visualizzaScheda(self):
         self.caricaScheda()
@@ -145,14 +97,12 @@ class Giocatore:
         self.salvaNote()
 
     def visualizzaNote(self):
-        #with open(self.percorso+self.utente.personaggio.getSpazioNote()+".pickle", "rb") as f:
-            #return pickle.load(f)
-        pass
+        self.caricaScheda()
+        return self.utente.personaggio.getSpazioNote()
 
     def salvaNote(self):
-        #with open(self.percorso+self.utente.personaggio.getSpazioNote()+".pickle", "wb") as f:
-            #pickle.dump(self.utente.personaggio.getSpazioNote(), f, pickle.HIGHEST_PROTOCOL)
-        pass
+        with open("Schede/" + self.utente.getId() + ".pickle", "wb") as f:
+            pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def visualizzaDispense(self):
         #TODO
