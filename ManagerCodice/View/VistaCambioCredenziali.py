@@ -9,12 +9,16 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 
+from Controller import Giocatore
 
 class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(592, 388)
+    def setupUi(self, Form, utente):
+        self.gestoreGiocatore = Giocatore.Giocatore(utente)
+        self.Form = Form
+        self.Form.setObjectName("Form")
+        self.Form.resize(592, 388)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(Form)
@@ -22,40 +26,61 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.label_4 = QtWidgets.QLabel(Form)
-        self.label_4.setObjectName("label_4")
-        self.gridLayout.addWidget(self.label_4, 1, 0, 1, 1)
-        self.label_2 = QtWidgets.QLabel(Form)
-        self.label_2.setObjectName("label_2")
-        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
-        self.lineEdit = QtWidgets.QLineEdit(Form)
-        self.lineEdit.setObjectName("lineEdit")
-        self.gridLayout.addWidget(self.lineEdit, 0, 1, 1, 1)
-        self.lineEdit_3 = QtWidgets.QLineEdit(Form)
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.gridLayout.addWidget(self.lineEdit_3, 1, 1, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(Form)
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout.addWidget(self.pushButton, 2, 1, 1, 1)
+        self.labelPass = QtWidgets.QLabel(Form)
+        self.labelPass.setObjectName("label_4")
+        self.gridLayout.addWidget(self.labelPass, 1, 0, 1, 1)
+        self.labelNome = QtWidgets.QLabel(Form)
+        self.labelNome.setObjectName("label_2")
+        self.gridLayout.addWidget(self.labelNome, 0, 0, 1, 1)
+        self.leNome = QtWidgets.QLineEdit(Form)
+        self.leNome.setObjectName("lineEdit")
+        self.gridLayout.addWidget(self.leNome, 0, 1, 1, 1)
+        self.lePass = QtWidgets.QLineEdit(Form)
+        self.lePass.setObjectName("lineEdit_3")
+        self.gridLayout.addWidget(self.lePass, 1, 1, 1, 1)
+        self.buttonConferma = QtWidgets.QPushButton(Form)
+        self.buttonConferma.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.buttonConferma, 2, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
+        self.buttonConferma.clicked.connect(self.cambioCredenziali)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Cambio Credenziali"))
         self.label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Selezionare le nuove credenziali</span></p></body></html>"))
-        self.label_4.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Nuova password:</span></p></body></html>"))
-        self.label_2.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Nuovo nome utente:</span></p></body></html>"))
-        self.pushButton.setText(_translate("Form", "Conferma nuove credenziali"))
+        self.labelPass.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Nuova password:</span></p></body></html>"))
+        self.labelNome.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Nuovo nome utente:</span></p></body></html>"))
+        self.buttonConferma.setText(_translate("Form", "Conferma nuove credenziali"))
 
+    def cambioCredenziali(self):
+        if self.leNome.text() == "":
+            popup = QMessageBox()
+            popup.setWindowTitle("Errore!")
+            popup.setText("Nessun nome utente inserito")
+            popup.exec_()
+            return
+        valoreNomeUtente = self.leNome.text()
+        if self.lePass.text() == "":
+            popup = QMessageBox()
+            popup.setWindowTitle("Errore!")
+            popup.setText("Nessuna password inserita")
+            popup.exec_()
+            return
+        valorePassword = self.lePass.text()
+        if self.gestoreGiocatore.cambioCredenziali(valoreNomeUtente, valorePassword):
+            popup = QMessageBox()
+            popup.setWindowTitle("Successo")
+            popup.setText("Cambio credenziali effettuato con succeso")
+            popup.exec_()
+            self.Form.close()
+            return
+        else:
+            popup = QMessageBox()
+            popup.setText("Nome utente già esistente")
+            popup.setWindowTitle("Errore!")
+            popup.exec_()
+            return
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())

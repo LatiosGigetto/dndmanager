@@ -15,11 +15,18 @@ class Giocatore:
         self.accesso = Accesso.Accesso()
         self.accesso.caricaListaUtenti()
         for x in self.accesso.listaUtenti:
-            if nomeUtente == x:
+            if nomeUtente == x.nomeUtente:
                 print("nome utente già esistente")
                 return False
-        self.utente.setNomeUtente(nomeUtente)
-        self.utente.setPassword(password)
+        for i in self.accesso.listaUtenti:
+            index = self.accesso.listaUtenti.index(i)
+            if self.utente.nomeUtente == i.nomeUtente:
+                self.utente.setNomeUtente(nomeUtente)
+                self.utente.setPassword(password)
+                print("sborra")
+                self.accesso.listaUtenti[index] = self.utente
+                print("sborra")
+        self.accesso.salvaListaUtenti()
         return True
 
     def creaScheda(self, nome, punteggi, classe, livello, puntiFerita, armatura, tiroSalvezza1, tiroSalvezza2, abilita1, abilita2, storia):
@@ -115,21 +122,23 @@ class Giocatore:
             self.utente.personaggio.setArmatura(armatura)
         self.salvaScheda()
 
-    def visualizzaScheda(self):
-            return self.utente.personaggio
-
     def caricaScheda(self):
-        if os.path.isfile(self.utente.getNomeUtente() + ".pickle"):
-            with open("Schede/" + self.utente.getNomeUtente() + ".pickle", "rb") as f:
+        if os.path.isfile(self.utente.getId() + ".pickle"):
+            with open("Schede/" + self.utente.getId() + ".pickle", "rb") as f:
                 self.utente.personaggio = pickle.load(f)
 
+    def visualizzaScheda(self):
+        self.caricaScheda()
+        return self.utente.personaggio
+
     def salvaScheda(self):
-        with open("Schede/" + self.utente.getNomeUtente() + ".pickle", "wb") as f:
+        with open("Schede/" + self.utente.getId() + ".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def tiraDado(self, numeroFacce, numeroLanci):
-        self.dado = Utilities.Dado(numeroFacce, numeroLanci)
-        return random.randint(1, self.dado.numeroFacce)*self.dado.numeroLanci
+        self.dado = Utilities.Dado(int(numeroFacce), int(numeroLanci))
+        print(self.dado.numeroFacce, self.dado.numeroLanci)
+        return str(random.randint(1, self.dado.numeroFacce)*self.dado.numeroLanci)
 
     def modificaNote(self, note):
         self.utente.personaggio.setSpazioNote(note)
