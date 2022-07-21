@@ -6,7 +6,7 @@ class Appunti:
         self.immagine = Image
         self.informazioni = ""
         self.nome = ""
-
+        self.ispublic = False
     def getImmagine(self):
         return self.immagine
 
@@ -25,3 +25,9 @@ class Appunti:
 
     def setNome(self, nome):
         self.nome = nome
+
+    def getIspublic(self):
+        return  self.ispublic
+
+    def setIspublic(self, ispublic):
+        self.ispublic = ispublic
