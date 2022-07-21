@@ -10,10 +10,10 @@ class Master:
 
     def __init__(self, utente):
         self.utente = utente
-
-    def cambioCredenziali(self, nomeUtente, password):
         self.accesso = Accesso.Accesso()
         self.accesso.caricaListaUtenti()
+
+    def cambioCredenziali(self, nomeUtente, password):
         for x in self.accesso.listaUtenti:
             if nomeUtente == x:
                 print("nome utente già esistente")
@@ -22,10 +22,10 @@ class Master:
         self.utente.setPassword(password)
         return True
 
-    def creaAppunti(self, nome, immagine, informazioni):
+    def creaAppunti(self, nome, nomeImmagine, informazioni):
         self.appunto = Appunti.Appunti()
         self.appunto.setNome(nome)
-        self.appunto.setImmagine(immagine)
+        self.appunto.setImmagine(nomeImmagine)
         self.appunto.setInformazioni(informazioni)
         self.salvaAppunti()
         return "File created"
@@ -74,10 +74,10 @@ class Master:
             self.appunto.setIspublic(ispublic)
         return "File not found"
 
-    def trovaPersonaggi(self, nomeScheda):
-        #for i in self.accesso
-        if os.path.isfile("Schede/" + nomeScheda + ".pickle"):
-            return True
+    def trovaPersonaggi(self, nomeUtente):
+        for i in self.accesso.listaUtenti:
+            if nomeUtente == i.nomeUtente:
+                return i
         return False
 
     def aggiornaPersonaggio(self, nome, punteggi, classe, livello, puntiFerita, armatura, tiroSalvezza1, tiroSalvezza2, abilita1,
@@ -141,10 +141,10 @@ class Master:
 
     def caricaContatore(self):
         contatore = 0
-        if (os.path.exists("contatore.txt")):
+        if os.path.isfile("contatore.txt"):
             with open("contatore.txt") as fileContatore:
-                contatore = fileContatore.read()
-        fileContatore.close()
+                contatore = int(fileContatore.read())
+                fileContatore.close()
         self.contatoreAttuale = Utilities.Contatore(contatore)
 
     def incrementaContatore(self):
@@ -154,13 +154,13 @@ class Master:
         self.contatoreAttuale.contatore = 0
 
     def visualizzaContatore(self):
-        if (self.contatoreAttuale.contatore < 0):
+        if self.contatoreAttuale.contatore < 0:
             self.resettaContatore()
-        return self.contatoreAttuale.contatore
+        return str(self.contatoreAttuale.contatore)
 
     def salvaContatore(self):
         fileContatore = open("contatore.txt", 'w')
-        fileContatore.write(self.contatoreAttuale.contatore)
+        fileContatore.write(str(self.contatoreAttuale.contatore))
         fileContatore.close()
 
     def creaStatistiche(self):

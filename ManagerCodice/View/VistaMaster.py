@@ -10,12 +10,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Controller import Master
-from View import VistaCambioCredenziali, VistaAccesso, VistaDado, VistaTrovaPersonaggio
+from View import VistaCambioCredenziali, VistaAccesso, VistaDado, VistaTrovaPersonaggio, VistaContatore
 
 
 class Ui_Form(object):
     def setupUi(self, Form, master):
         self.gestoreMaster = Master.Master(master)
+        self.currentRitorno = ""
         Form.setObjectName("Form")
         Form.resize(637, 454)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
@@ -35,11 +36,12 @@ class Ui_Form(object):
         self.buttonModPG.setEnabled(True)
         self.buttonModPG.setObjectName("pushButton_7")
         self.gridLayout.addWidget(self.buttonModPG, 0, 1, 1, 1)
+        self.buttonModPG.clicked.connect(self.goModPG)
         self.buttonVisPG = QtWidgets.QPushButton(Form)
         self.buttonVisPG.setEnabled(True)
         self.buttonVisPG.setObjectName("pushButton_16")
         self.gridLayout.addWidget(self.buttonVisPG, 0, 2, 1, 1)
-        self.buttonVisPG.clicked.connect(self.goTrovaPG)
+        self.buttonVisPG.clicked.connect(self.goVisPG)
         self.buttonCreaAppunto = QtWidgets.QPushButton(Form)
         self.buttonCreaAppunto.setEnabled(True)
         self.buttonCreaAppunto.setObjectName("pushButton_2")
@@ -69,6 +71,7 @@ class Ui_Form(object):
         self.buttonContatore.setEnabled(True)
         self.buttonContatore.setObjectName("pushButton_17")
         self.gridLayout.addWidget(self.buttonContatore, 3, 0, 1, 1)
+        self.buttonContatore.clicked.connect(self.goContatore)
         self.buttonPubblica = QtWidgets.QPushButton(Form)
         self.buttonPubblica.setEnabled(True)
         self.buttonPubblica.setObjectName("pushButton_18")
@@ -109,9 +112,22 @@ class Ui_Form(object):
         self.ui.setupUi(windowDado, self.gestoreMaster)
         windowDado.show()
 
-    def goTrovaPG(self):
+    def goTrovaPG(self, next):
         self.ui = VistaTrovaPersonaggio.Ui_TrovaPG()
         windowTrovaPG = QtWidgets.QDialog()
         VistaAccesso.Ui_Login.windowList.append(windowTrovaPG)
-        self.ui.setupUi(windowTrovaPG)
+        self.ui.setupUi(windowTrovaPG, self.gestoreMaster, next)
+        windowTrovaPG.show()
+
+    def goVisPG(self):
+        self.goTrovaPG("Visualizza")
+
+    def goModPG(self):
+        self.goTrovaPG("Modifica")
+
+    def goContatore(self):
+        self.ui = VistaContatore.Ui_Form()
+        windowTrovaPG = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowTrovaPG)
+        self.ui.setupUi(windowTrovaPG, self.gestoreMaster)
         windowTrovaPG.show()
