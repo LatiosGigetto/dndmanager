@@ -10,9 +10,8 @@ class Appunti:
     def getImmagine(self):
         return self.immagine
 
-    def setImmagine(self, immagine):
-        #TODO
-        pass
+    def setImmagine(self, nomeImmagine):
+        self.immagine = Image.open("Appunti/" + nomeImmagine + ".jpg")
 
     def getInformazioni(self):
         return self.informazioni
