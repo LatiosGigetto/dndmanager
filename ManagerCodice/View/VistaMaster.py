@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Controller import Master
-from View import VistaCambioCredenziali, VistaAccesso, VistaDado
+from View import VistaCambioCredenziali, VistaAccesso, VistaDado, VistaTrovaPersonaggio
 
 
 class Ui_Form(object):
@@ -39,6 +39,7 @@ class Ui_Form(object):
         self.buttonVisPG.setEnabled(True)
         self.buttonVisPG.setObjectName("pushButton_16")
         self.gridLayout.addWidget(self.buttonVisPG, 0, 2, 1, 1)
+        self.buttonVisPG.clicked.connect(self.goTrovaPG)
         self.buttonCreaAppunto = QtWidgets.QPushButton(Form)
         self.buttonCreaAppunto.setEnabled(True)
         self.buttonCreaAppunto.setObjectName("pushButton_2")
@@ -79,7 +80,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "DnD Manager"))
         self.label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:14pt;\">Id: 7123</span></p><p><span style=\" font-size:14pt;\">Ruolo: Master</span></p><p><br/></p></body></html>"))
         self.buttonCredenziali.setText(_translate("Form", "Cambia Credenziali"))
         self.buttonModPG.setText(_translate("Form", "Modifica PG"))
@@ -107,3 +108,10 @@ class Ui_Form(object):
         VistaAccesso.Ui_Login.windowList.append(windowDado)
         self.ui.setupUi(windowDado, self.gestoreMaster)
         windowDado.show()
+
+    def goTrovaPG(self):
+        self.ui = VistaTrovaPersonaggio.Ui_TrovaPG()
+        windowTrovaPG = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowTrovaPG)
+        self.ui.setupUi(windowTrovaPG)
+        windowTrovaPG.show()

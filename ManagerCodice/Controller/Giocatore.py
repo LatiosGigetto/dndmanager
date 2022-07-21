@@ -7,12 +7,12 @@ from Controller import Accesso
 class Giocatore:
 
     def __init__(self, utente):
+        self.accesso = Accesso.Accesso()
         self.utente = utente
         self.caricaScheda()
     # TODO Python merda
 
     def cambioCredenziali(self, nomeUtente, password):
-        self.accesso = Accesso.Accesso()
         self.accesso.caricaListaUtenti()
         for x in self.accesso.listaUtenti:
             if nomeUtente == x.nomeUtente:
@@ -70,10 +70,15 @@ class Giocatore:
         self.utente.personaggio.setAbilita(abilita)
         self.utente.personaggio.setStoria(storia)
         self.salvaScheda()
+        for i in self.accesso.listaUtenti:
+            index = self.accesso.listaUtenti.index(i)
+            if self.utente.nomeUtente == i.nomeUtente:
+                self.accesso.listaUtenti[index] = self.utente
+        self.accesso.salvaListaUtenti()
 
     def caricaScheda(self):
-        if os.path.isfile("Schede/" + self.utente.getId() + ".pickle"):
-            with open("Schede/" + self.utente.getId() + ".pickle", "rb") as f:
+        if os.path.isfile("Schede/" + self.utente.personaggio.getNome() + ".pickle"):
+            with open("Schede/" + self.utente.personaggio.getNome() + ".pickle", "rb") as f:
                 self.utente.personaggio = pickle.load(f)
                 return True
         else:
@@ -84,8 +89,10 @@ class Giocatore:
         return self.utente.personaggio
 
     def salvaScheda(self):
-        with open("Schede/" + self.utente.getId() + ".pickle", "wb") as f:
+        with open("Schede/" + self.utente.personaggio.getNome() + ".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
+        self.accesso.caricaListaUtenti()
+        self.accesso.salvaListaUtenti()
 
     def tiraDado(self, numeroFacce, numeroLanci):
         self.dado = Utilities.Dado(int(numeroFacce), int(numeroLanci))
@@ -100,7 +107,7 @@ class Giocatore:
         return self.utente.personaggio.getSpazioNote()
 
     def salvaNote(self):
-        with open("Schede/" + self.utente.getId() + ".pickle", "wb") as f:
+        with open("Schede/" + self.utente.personaggio.getNome() + ".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
 
     def visualizzaDispense(self):

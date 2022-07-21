@@ -90,11 +90,18 @@ class Ui_Login(object):
         valorePassword = self.lePassword.text()
         nuovoUtente = self.gestoreAccesso.registrazione(valoreNomeUtente, valorePassword)
         if type(nuovoUtente) is Utente.Utente:
-            windowGiocatore = QtWidgets.QWidget()
-            self.windowList.append(windowGiocatore)
-            self.ui = VistaGiocatore.Ui_Form()
-            self.ui.setupUi(windowGiocatore, nuovoUtente)
-            windowGiocatore.show()
+            if not nuovoUtente.isMaster:
+                windowGiocatore = QtWidgets.QWidget()
+                self.windowList.append(windowGiocatore)
+                self.ui = VistaGiocatore.Ui_Form()
+                self.ui.setupUi(windowGiocatore, nuovoUtente)
+                windowGiocatore.show()
+            else:
+                windowMaster = QtWidgets.QWidget()
+                self.windowList.append(windowMaster)
+                self.ui = VistaMaster.Ui_Form()
+                self.ui.setupUi(windowMaster, nuovoUtente)
+                windowMaster.show()
         else:
             popup = QMessageBox()
             popup.setText("Nome utente già esistente")

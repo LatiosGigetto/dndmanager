@@ -75,6 +75,7 @@ class Master:
         return "File not found"
 
     def trovaPersonaggi(self, nomeScheda):
+        #for i in self.accesso
         if os.path.isfile("Schede/" + nomeScheda + ".pickle"):
             return True
         return False
