@@ -14,14 +14,15 @@ class Accesso:
         if os.path.isfile("listaUtenti.pickle"):
             with open("listaUtenti.pickle", "rb") as f:
                 self.listaUtenti = pickle.load(f)
-        return
+                return True
+        return False
 
     def salvaListaUtenti(self):
         with open("listaUtenti.pickle", "wb") as f:
             pickle.dump(self.listaUtenti, f, pickle.HIGHEST_PROTOCOL)
 
     def registrazione(self, nomeUtente, password):
-        self.caricaListaUtenti()
+        isPlayer = self.caricaListaUtenti()
         if self.listaUtenti:
             for i in self.listaUtenti:
                 if nomeUtente == i.nomeUtente:
@@ -40,6 +41,8 @@ class Accesso:
         utente.setNomeUtente(nomeUtente)
         utente.setPassword(password)
         utente.setId(id)
+        if not isPlayer:
+            utente.isMaster = True
         self.listaUtenti.append(utente)
         self.salvaListaUtenti()
         return utente
@@ -49,13 +52,9 @@ class Accesso:
         for i in self.listaUtenti:
             if nomeUtente == i.nomeUtente:
                 if password == i.password:
-                    if i.isMaster:
-                        return "Master"
-                    else:
                         return i
                 else:
                     return "Password"
-        print("Nome utente non trovato")
         return "Utente"
 
 

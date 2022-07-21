@@ -9,12 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Controller import Giocatore
+from Controller import Giocatore, Master
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow, gestoreGiocatore:Giocatore.Giocatore):
-        self.gestoreGiocatore = gestoreGiocatore
+    def setupUi(self, MainWindow, gestore):
+        self.gestore = gestore
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(332, 363)
         MainWindow.setMinimumSize(QtCore.QSize(332, 363))
@@ -111,5 +111,5 @@ class Ui_MainWindow(object):
         self.labelRisultato.setText(_translate("MainWindow", "Risultato:"))
 
     def tiraDadi(self):
-        self.lineRisultato.setText(self.gestoreGiocatore.tiraDado(self.tipoDado.currentText(), self.numDadi.currentText()))
+        self.lineRisultato.setText(self.gestore.tiraDado(self.tipoDado.currentText(), self.numDadi.currentText()))
 

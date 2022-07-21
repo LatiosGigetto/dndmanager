@@ -1,15 +1,15 @@
-import Accesso
 import os
 import pickle
 import random
 
 from Model import Utilities, Utente, Appunti
+from Controller import Accesso
 
 
 class Master:
 
-    def __init__(self):
-        self.utente = Utente.Utente()
+    def __init__(self, utente):
+        self.utente = utente
 
     def cambioCredenziali(self, nomeUtente, password):
         self.accesso = Accesso.Accesso()
@@ -135,8 +135,8 @@ class Master:
         return "File not found"
 
     def tiraDado(self, numeroFacce, numeroLanci):
-        self.dado = Utilities.Dado(numeroFacce, numeroLanci)
-        return random.randint(1, self.dado.numeroFacce) * self.dado.numeroLanci
+        self.dado = Utilities.Dado(int(numeroFacce), int(numeroLanci))
+        return str(random.randint(1, self.dado.numeroFacce) * self.dado.numeroLanci)
 
     def caricaContatore(self):
         contatore = 0

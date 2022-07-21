@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
 from Controller import Accesso
-from View import VistaGiocatore
+from View import VistaGiocatore, VistaMaster
 from Model import Utente
 
 
@@ -118,16 +118,20 @@ class Ui_Login(object):
         valorePassword = self.lePassword.text()
         currentUtente = self.gestoreAccesso.login(valoreNomeUtente, valorePassword)
         if type(currentUtente) is Utente.Utente:
-            print("culo")
-            windowGiocatore = QtWidgets.QWidget()
-            self.windowList.append(windowGiocatore)
-            self.ui = VistaGiocatore.Ui_Form()
-            self.ui.setupUi(windowGiocatore, currentUtente)
-            windowGiocatore.show()
+            if not currentUtente.isMaster:
+                windowGiocatore = QtWidgets.QWidget()
+                self.windowList.append(windowGiocatore)
+                self.ui = VistaGiocatore.Ui_Form()
+                self.ui.setupUi(windowGiocatore, currentUtente)
+                windowGiocatore.show()
+            else:
+                windowMaster = QtWidgets.QWidget()
+                self.windowList.append(windowMaster)
+                self.ui = VistaMaster.Ui_Form()
+                self.ui.setupUi(windowMaster, currentUtente)
+                windowMaster.show()
         else:
             match currentUtente:
-                case "Master":
-                    pass
                 case "Password":
                     popup = QMessageBox()
                     popup.setText("Password errata")

@@ -89,7 +89,6 @@ class Giocatore:
 
     def tiraDado(self, numeroFacce, numeroLanci):
         self.dado = Utilities.Dado(int(numeroFacce), int(numeroLanci))
-        print(self.dado.numeroFacce, self.dado.numeroLanci)
         return str(random.randint(1, self.dado.numeroFacce)*self.dado.numeroLanci)
 
     def modificaNote(self, note):
