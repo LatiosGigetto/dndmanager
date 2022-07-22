@@ -45,15 +45,11 @@ class Ui_TrovaApp(object):
                     self.ui.setupUi(windowModApp, self.gestore)
                     windowModApp.show()
                 case "Elimina":
-                    if os.path.isfile("Appunti/" + self.gestore.appunto.getNome() + ".pickle"):
-                        os.remove("Appunti/" + self.gestore.appunto.getNome() + ".pickle")
-                        if os.path.isfile("Appunti/" + self.gestore.appunto.getNome() + ".jpg"):
-                            os.remove("Appunti/" + self.gestore.appunto.getNome() + ".jpg")
-                        self.gestore.appunto = Appunto.Appunto()
-                        popup = QtWidgets.QMessageBox()
-                        popup.setText("Appunto eliminato")
-                        popup.setWindowTitle("Successo")
-                        popup.exec_()
+                    self.gestore.eliminaAppunti(self.gestore.appunto.getNome())
+                    popup = QtWidgets.QMessageBox()
+                    popup.setText("Appunto eliminato")
+                    popup.setWindowTitle("Successo")
+                    popup.exec_()
                 case "Pubblica":
                     if os.path.isfile("Appunti/" + self.gestore.appunto.getNome() + ".pickle"):
                         if self.gestore.appunto.getIspublic():
