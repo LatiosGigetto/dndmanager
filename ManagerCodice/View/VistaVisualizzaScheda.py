@@ -8,6 +8,7 @@ class Ui_Scheda(object):
         Dialog.resize(651, 612)
         Dialog.setMinimumSize(QtCore.QSize(651, 612))
         Dialog.setMaximumSize(QtCore.QSize(651, 612))
+        Dialog.setWindowTitle("Scheda")
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
         self.labelSag = QtWidgets.QLabel(Dialog)

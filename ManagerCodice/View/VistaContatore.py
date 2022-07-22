@@ -50,7 +50,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Contatore"))
         self.label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Numero sessioni:</span></p></body></html>"))
         self.textBrowser.setText("<html><head/><body><p><span style=\" font-size:12pt;\">0</span></p></body></html>")
         self.buttonIncr.setText(_translate("Form", "Incrementa"))

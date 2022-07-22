@@ -76,13 +76,13 @@ class Scheda:
         self.livello = livello
 
     def getPunteggi(self):
-        return self.classe
+        return self.punteggi
 
     def setPunteggi(self, punteggi):
         self.punteggi = punteggi
 
     def getPuntiFerita(self):
-        return self.classe
+        return self.puntiFerita
 
     def setPuntiFerita(self, puntiFerita):
         self.puntiFerita = puntiFerita

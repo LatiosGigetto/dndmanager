@@ -30,7 +30,7 @@ class Appunto:
         self.nome = nome
 
     def getIspublic(self):
-        return  self.ispublic
+        return self.ispublic
 
     def setIspublic(self, ispublic):
         self.ispublic = ispublic

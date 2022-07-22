@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Controller import Master
 from View import VistaCambioCredenziali, VistaAccesso, VistaDado, VistaTrovaPersonaggio, VistaContatore, \
-    VistaCreaAppunto, VistaTrovaAppunto
+    VistaCreaAppunto, VistaTrovaAppunto, VistaStatistiche
 
 
 class Ui_Form(object):
@@ -72,6 +72,7 @@ class Ui_Form(object):
         self.buttonStats.setEnabled(True)
         self.buttonStats.setObjectName("pushButton_5")
         self.gridLayout.addWidget(self.buttonStats, 2, 2, 1, 1)
+        self.buttonStats.clicked.connect(self.goStats)
         self.buttonContatore = QtWidgets.QPushButton(Form)
         self.buttonContatore.setEnabled(True)
         self.buttonContatore.setObjectName("pushButton_17")
@@ -81,6 +82,7 @@ class Ui_Form(object):
         self.buttonPubblica.setEnabled(True)
         self.buttonPubblica.setObjectName("pushButton_18")
         self.gridLayout.addWidget(self.buttonPubblica, 3, 1, 1, 1)
+        self.buttonPubblica.clicked.connect(self.goPubApp)
         self.verticalLayout.addLayout(self.gridLayout)
 
         self.retranslateUi(Form)
@@ -145,7 +147,7 @@ class Ui_Form(object):
         windowCreaApp.show()
 
     def goTrovaApp(self, next):
-        self.ui = self.ui = VistaTrovaAppunto.Ui_TrovaApp()
+        self.ui = VistaTrovaAppunto.Ui_TrovaApp()
         windowTrovaApp = QtWidgets.QDialog()
         VistaAccesso.Ui_Login.windowList.append(windowTrovaApp)
         self.ui.setupUi(windowTrovaApp, self.gestoreMaster, next)
@@ -159,3 +161,19 @@ class Ui_Form(object):
 
     def goModifApp(self):
         self.goTrovaApp("Modifica")
+
+    def goPubApp(self):
+        self.goTrovaApp("Pubblica")
+
+    def goStats(self):
+        if not self.gestoreMaster.creaStatistiche():
+            popup = QtWidgets.QMessageBox()
+            popup.setText("Nessun personaggio registrato")
+            popup.setWindowTitle("Errore!")
+            popup.exec_()
+            return
+        self.ui = VistaStatistiche.Ui_Stats()
+        windowStats = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowStats)
+        self.ui.setupUi(windowStats, self.gestoreMaster)
+        windowStats.show()

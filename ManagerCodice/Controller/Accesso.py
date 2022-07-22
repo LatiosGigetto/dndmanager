@@ -26,7 +26,6 @@ class Accesso:
         if self.listaUtenti:
             for i in self.listaUtenti:
                 if nomeUtente == i.nomeUtente:
-                    print("I valori sono:", nomeUtente, password)
                     return False
         id = str(randint(1000, 9999))
         i = 0

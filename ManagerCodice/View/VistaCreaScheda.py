@@ -340,8 +340,6 @@ class Ui_MainWindow(object):
         self.buttonConferma.setText(_translate("MainWindow", "Conferma"))
 
     def creaScheda(self):
-        punteggi = {}
-        print("culone")
         if not (self.lineNome.text() and self.lineCA.text() and self.linePF.text() and self.lineForza.text() and self.lineDestr.text() \
                 and self.lineCost.text() and self.lineInt.text() and self.lineSagg.text() and self.lineCar.text()):
             popup = QtWidgets.QMessageBox()

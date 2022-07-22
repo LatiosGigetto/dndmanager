@@ -10,15 +10,16 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPixmap
+from Model import NPC
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, gestore):
         self.gestore = gestore
         self.MainWindow = MainWindow
-        self.layout = QtWidgets.QVBoxLayout(MainWindow)
-        self.immagineAppunto = QtWidgets.QLabel(MainWindow)
-        self.testoAppunto = QtWidgets.QTextBrowser(MainWindow)
+        self.layout = QtWidgets.QVBoxLayout(self.MainWindow)
+        self.immagineAppunto = QtWidgets.QLabel(self.MainWindow)
+        self.testoAppunto = QtWidgets.QTextBrowser(self.MainWindow)
         self.layout.addWidget(self.immagineAppunto)
         self.layout.addWidget(self.testoAppunto)
 
@@ -27,9 +28,15 @@ class Ui_MainWindow(object):
     def visualizza(self):
         self.gestore.visualizzaAppunti(self.gestore.appunto.getNome())
         self.testoAppunto.setText(self.gestore.appunto.getInformazioni())
-        print(self.gestore.appunto.getImmagine())
         if self.gestore.appunto.getImmagine() == None:
             self.immagineAppunto.setText("Nessuna immagine per questo appunto")
         else:
             pixmap = QPixmap("Appunti/" + self.gestore.appunto.getNome() + ".jpg")
             self.immagineAppunto.setPixmap(pixmap)
+        if type(self.gestore.appunto) == NPC.NPC:                   # Non ho parole
+            self.labelSfida = QtWidgets.QLabel(self.MainWindow)
+            self.labelSfida.setText("Grado sfida")
+            self.testoSifda = QtWidgets.QLabel(self.MainWindow)
+            self.testoSifda.setText(self.gestore.appunto.getGradoSfida())
+            self.layout.addWidget(self.labelSfida)
+            self.layout.addWidget(self.testoSifda)

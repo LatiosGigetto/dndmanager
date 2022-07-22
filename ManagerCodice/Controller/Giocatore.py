@@ -109,7 +109,3 @@ class Giocatore:
     def salvaNote(self):
         with open("Schede/" + self.utente.personaggio.getNome() + ".pickle", "wb") as f:
             pickle.dump(self.utente.personaggio, f, pickle.HIGHEST_PROTOCOL)
-
-    def visualizzaDispense(self):
-        #TODO
-        pass

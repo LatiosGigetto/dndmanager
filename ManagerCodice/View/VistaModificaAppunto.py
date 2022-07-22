@@ -14,7 +14,7 @@ class Ui_CreaApp(object):
         self.immagine = ()
         self.isNPC = False
         self.Form.resize(600, 600)
-        self.Form.setWindowTitle("Crea Appunto")
+        self.Form.setWindowTitle("Modifica Appunto")
         self.layout = QtWidgets.QGridLayout(Form)
         self.labelNome = QtWidgets.QLabel(Form)
         self.labelNome.setText("Nome appunto")
@@ -52,19 +52,15 @@ class Ui_CreaApp(object):
 
 
     def caricaAppunto(self):
-        self.gestore.caricaAppunto(self.gestore.appunto.getNome())
+        self.gestore.caricaAppunti(self.gestore.appunto.getNome())
         self.leNome.setText(self.gestore.appunto.getNome())
         if type(self.gestore.appunto) == NPC:
-            print("palle")
             self.checkBox.setChecked(True)
             self.isNPC = True
             self.leSfida.setDisabled(False)
             self.leSfida.setText(self.gestore.appunto.getGradoSfida())
-            print("palle")
         self.textAppunto.setText(self.gestore.appunto.getInformazioni())
-        print("palle")
         if not self.gestore.appunto.getImmagine() is None:
-            print("palle")
             self.immagine = ("./Appunti/" + self.gestore.appunto.getNome() + ".jpg", 0)
 
     def carica(self):
@@ -94,12 +90,17 @@ class Ui_CreaApp(object):
             popup.exec_()
             return
 
-        if os.path.isfile("Appunti/" + self.leNome.text() + ".pickle"):
+        if os.path.isfile("Appunti/" + self.leNome.text() + ".pickle") \
+                and not self.gestore.appunto.getNome() == self.leNome.text():
             popup = QtWidgets.QMessageBox()
             popup.setText("Appunto già esistente con quel nome")
             popup.setWindowTitle("Errore")
             popup.exec_()
             return
+
+        os.remove("Appunti/" + self.gestore.appunto.getNome() + ".pickle")
+        if os.path.isfile("Appunti/" + self.gestore.appunto.getNome() + ".jpg"):
+            os.remove("Appunti/" + self.gestore.appunto.getNome() + ".jpg")
 
         if self.immagine:
             self.gestore.creaAppunti(self.leNome.text(), nomeImmagine=self.immagine[0], informazioni=self.textAppunto.toPlainText(), isNPC=self.isNPC,
@@ -108,7 +109,7 @@ class Ui_CreaApp(object):
             self.gestore.creaAppunti(self.leNome.text(), informazioni=self.textAppunto.toPlainText(), isNPC=self.isNPC, gradoSfida=self.leSfida.text())
 
         popup = QtWidgets.QMessageBox()
-        popup.setText("Appunto creato con successo")
+        popup.setText("Appunto modificato con successo")
         popup.setWindowTitle("DnD Manager")
         popup.exec_()
         self.Form.close()

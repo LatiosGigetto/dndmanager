@@ -38,7 +38,6 @@ class Master:
             self.appunto.setImmagine(nomeImmagine)
         self.appunto.setInformazioni(informazioni)
         self.salvaAppunti()
-        print("aaaaaaa")
 
     def visualizzaAppunti(self, nomeAppunto):
         if self.caricaAppunti(nomeAppunto):
@@ -81,12 +80,15 @@ class Master:
 
     def pubblicaAppunti(self, nomeAppunto):
         if self.caricaAppunti(nomeAppunto):
-            ispublic = True
-            self.appunto.setIspublic(ispublic)
+            self.appunto.setIspublic(True)
+            self.salvaAppunti()
+            return True
         return "File not found"
 
     def trovaPersonaggi(self, nomeUtente):
         for i in self.accesso.listaUtenti:
+            if i.isMaster:
+                return False
             if nomeUtente == i.nomeUtente:
                 return i
         return False
@@ -175,5 +177,43 @@ class Master:
         fileContatore.close()
 
     def creaStatistiche(self):
-        # TODO
-        pass
+        self.accesso.caricaListaUtenti()
+        numGiocatori = 0
+        mediaPF = 0
+        mediaCA = 0
+        mediaLivello = 0
+        mediaFor = 0
+        mediaDes = 0
+        mediaCos = 0
+        mediaInt = 0
+        mediaSag = 0
+        mediaCar = 0
+
+        for i in self.accesso.listaUtenti:
+            if i.isMaster or i.personaggio.getNome() == "":
+                continue
+            numGiocatori += 1
+            mediaPF += i.personaggio.getPuntiFerita()
+            mediaCA += i.personaggio.getArmatura()
+            mediaLivello += i.personaggio.getLivello()
+            mediaFor += i.personaggio.punteggi["Forza"]
+            mediaDes += i.personaggio.punteggi["Destrezza"]
+            mediaCos += i.personaggio.punteggi["Costituzione"]
+            mediaInt += i.personaggio.punteggi["Intelligenza"]
+            mediaSag += i.personaggio.punteggi["Saggezza"]
+            mediaCar += i.personaggio.punteggi["Carisma"]
+        if numGiocatori == 0:
+            return False
+        finalPF = int(mediaPF / numGiocatori)
+        finalCA = int(mediaCA / numGiocatori)
+        finalLivello = int(mediaLivello / numGiocatori)
+        finalFor = int(mediaFor / numGiocatori)
+        finalDes = int(mediaDes / numGiocatori)
+        finalCos = int(mediaCos / numGiocatori)
+        finalInt = int(mediaInt / numGiocatori)
+        finalSag = int(mediaSag / numGiocatori)
+        finalCar = int(mediaCar / numGiocatori)
+        return finalPF, finalCA, finalLivello, finalFor, finalDes, finalCos, finalInt, finalSag, finalCar
+
+
+

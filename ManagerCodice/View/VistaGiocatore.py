@@ -9,9 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Controller import Giocatore
+from Controller import Giocatore, Master
 from View import VistaAccesso, VistaVisualizzaScheda, VistaCreaScheda, VistaDado, VistaCambioCredenziali, \
-    VistaModificaScheda, VistaNote
+    VistaModificaScheda, VistaNote, VistaTrovaAppunto
 from Model import Utente
 
 class Ui_Form(object):
@@ -51,6 +51,7 @@ class Ui_Form(object):
         self.buttonVisualizzaDispense.setEnabled(True)
         self.buttonVisualizzaDispense.setObjectName("pushButton_6")
         self.gridLayout.addWidget(self.buttonVisualizzaDispense, 2, 0, 1, 1)
+        self.buttonVisualizzaDispense.clicked.connect(self.goVisDispense)
         self.buttonTiraDadi = QtWidgets.QPushButton(Form)
         self.buttonTiraDadi.setEnabled(True)
         self.buttonTiraDadi.setObjectName("pushButton_4")
@@ -146,3 +147,10 @@ class Ui_Form(object):
         VistaAccesso.Ui_Login.windowList.append(windowNote)
         self.ui.setupUi(windowNote, self.gestoreGiocatore)
         windowNote.show()
+
+    def goVisDispense(self):
+        self.ui = VistaTrovaAppunto.Ui_TrovaApp()
+        windowDisp = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowDisp)
+        self.ui.setupUi(windowDisp, Master.Master(self.gestoreGiocatore.utente), "Dispense")
+        windowDisp.show()
