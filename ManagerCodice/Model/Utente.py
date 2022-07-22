@@ -1,4 +1,4 @@
-from Model import Scheda, Appunti
+from Model import Scheda, Appunto
 
 class Utente:
     def __init__(self):

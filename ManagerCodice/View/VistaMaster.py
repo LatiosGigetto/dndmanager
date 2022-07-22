@@ -10,7 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Controller import Master
-from View import VistaCambioCredenziali, VistaAccesso, VistaDado, VistaTrovaPersonaggio, VistaContatore
+from View import VistaCambioCredenziali, VistaAccesso, VistaDado, VistaTrovaPersonaggio, VistaContatore, \
+    VistaCreaAppunto, VistaTrovaAppunto
 
 
 class Ui_Form(object):
@@ -46,18 +47,22 @@ class Ui_Form(object):
         self.buttonCreaAppunto.setEnabled(True)
         self.buttonCreaAppunto.setObjectName("pushButton_2")
         self.gridLayout.addWidget(self.buttonCreaAppunto, 1, 0, 1, 1)
+        self.buttonCreaAppunto.clicked.connect(self.goCreaApp)
         self.buttonVisAppunto = QtWidgets.QPushButton(Form)
         self.buttonVisAppunto.setEnabled(True)
         self.buttonVisAppunto.setObjectName("pushButton")
         self.gridLayout.addWidget(self.buttonVisAppunto, 1, 1, 1, 1)
+        self.buttonVisAppunto.clicked.connect(self.goVisApp)
         self.buttonModifAppunto = QtWidgets.QPushButton(Form)
         self.buttonModifAppunto.setEnabled(True)
         self.buttonModifAppunto.setObjectName("pushButton_3")
         self.gridLayout.addWidget(self.buttonModifAppunto, 1, 2, 1, 1)
+        self.buttonModifAppunto.clicked.connect(self.goModifApp)
         self.buttonElimAppunto = QtWidgets.QPushButton(Form)
         self.buttonElimAppunto.setEnabled(True)
         self.buttonElimAppunto.setObjectName("pushButton_14")
         self.gridLayout.addWidget(self.buttonElimAppunto, 2, 0, 1, 1)
+        self.buttonElimAppunto.clicked.connect(self.goElimApp)
         self.buttonDadi = QtWidgets.QPushButton(Form)
         self.buttonDadi.setEnabled(True)
         self.buttonDadi.setObjectName("pushButton_4")
@@ -131,3 +136,26 @@ class Ui_Form(object):
         VistaAccesso.Ui_Login.windowList.append(windowTrovaPG)
         self.ui.setupUi(windowTrovaPG, self.gestoreMaster)
         windowTrovaPG.show()
+
+    def goCreaApp(self):
+        self.ui = VistaCreaAppunto.Ui_CreaApp()
+        windowCreaApp = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowCreaApp)
+        self.ui.setupUi(windowCreaApp, self.gestoreMaster)
+        windowCreaApp.show()
+
+    def goTrovaApp(self, next):
+        self.ui = self.ui = VistaTrovaAppunto.Ui_TrovaApp()
+        windowTrovaApp = QtWidgets.QDialog()
+        VistaAccesso.Ui_Login.windowList.append(windowTrovaApp)
+        self.ui.setupUi(windowTrovaApp, self.gestoreMaster, next)
+        windowTrovaApp.show()
+
+    def goVisApp(self):
+        self.goTrovaApp("Visualizza")
+
+    def goElimApp(self):
+        self.goTrovaApp("Elimina")
+
+    def goModifApp(self):
+        self.goTrovaApp("Modifica")

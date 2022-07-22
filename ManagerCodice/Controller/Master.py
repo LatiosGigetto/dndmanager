@@ -2,7 +2,7 @@ import os
 import pickle
 import random
 
-from Model import Utilities, Utente, Appunti
+from Model import Utilities, Utente, Appunto, NPC
 from Controller import Accesso
 
 
@@ -14,21 +14,31 @@ class Master:
         self.accesso.caricaListaUtenti()
 
     def cambioCredenziali(self, nomeUtente, password):
+        self.accesso.caricaListaUtenti()
         for x in self.accesso.listaUtenti:
-            if nomeUtente == x:
-                print("nome utente già esistente")
+            if nomeUtente == x.nomeUtente:
                 return False
-        self.utente.setNomeUtente(nomeUtente)
-        self.utente.setPassword(password)
+        for i in self.accesso.listaUtenti:
+            index = self.accesso.listaUtenti.index(i)
+            if self.utente.nomeUtente == i.nomeUtente:
+                self.utente.setNomeUtente(nomeUtente)
+                self.utente.setPassword(password)
+                self.accesso.listaUtenti[index] = self.utente
+        self.accesso.salvaListaUtenti()
         return True
 
-    def creaAppunti(self, nome, nomeImmagine, informazioni):
-        self.appunto = Appunti.Appunti()
+    def creaAppunti(self, nome, informazioni, isNPC, nomeImmagine=False, gradoSfida=0):
+        if isNPC:
+            self.appunto = NPC.NPC()
+            self.appunto.gradoSfida = gradoSfida
+        else:
+            self.appunto = Appunto.Appunto()
         self.appunto.setNome(nome)
-        self.appunto.setImmagine(nomeImmagine)
+        if nomeImmagine:
+            self.appunto.setImmagine(nomeImmagine)
         self.appunto.setInformazioni(informazioni)
         self.salvaAppunti()
-        return "File created"
+        print("aaaaaaa")
 
     def visualizzaAppunti(self, nomeAppunto):
         if self.caricaAppunti(nomeAppunto):
@@ -60,6 +70,7 @@ class Master:
     def salvaAppunti(self):
         with open("Appunti/" + self.appunto.getNome() + ".pickle", "wb") as f:
             pickle.dump(self.appunto, f, pickle.HIGHEST_PROTOCOL)
+
 
     def caricaAppunti(self, nomeAppunto):
         if os.path.isfile("Appunti/" + nomeAppunto + ".pickle"):

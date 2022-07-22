@@ -1,8 +1,9 @@
-import Appunti
+from Model import Appunto
 
 
-class NPC(Appunti):
+class NPC(Appunto.Appunto):
     def __init__(self):
+        super().__init__()
         self.gradoSfida = 0
 
     def getGradoSfida(self):

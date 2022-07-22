@@ -1,9 +1,11 @@
+import os.path
+
 from PIL import Image
 
 
-class Appunti:
+class Appunto:
     def __init__(self):
-        self.immagine = Image
+        self.immagine = None
         self.informazioni = ""
         self.nome = ""
         self.ispublic = False
@@ -11,7 +13,9 @@ class Appunti:
         return self.immagine
 
     def setImmagine(self, nomeImmagine):
-        self.immagine = Image.open("Appunti/" + nomeImmagine + ".jpg")
+        self.immagine = Image.open(nomeImmagine)
+        self.immagine.load()
+        self.immagine.save("./Appunti/" + self.nome + ".jpg", "JPEG")
 
     def getInformazioni(self):
         return self.informazioni
