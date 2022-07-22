@@ -3,8 +3,8 @@ ManagerCodice/listaUtenti.pickle
 ManagerCodice/Controller/__pycache__
 ManagerCodice/Model/__pycache__
 ManagerCodice/View/__pycache__
-ManagerCodice/Schede
-ManagerCodice/Appunti
+ManagerCodice/Schede/*
+ManagerCodice/Appunti/*
 ManagerCodice/.idea/misc.xml
 ManagerCodice/contatore.txt
 ManagerCodice/.idea/ManagerCodice.iml
