@@ -99,8 +99,6 @@ class Ui_CreaApp(object):
             return
 
         os.remove("Appunti/" + self.gestore.appunto.getNome() + ".pickle")
-        if os.path.isfile("Appunti/" + self.gestore.appunto.getNome() + ".jpg"):
-            os.remove("Appunti/" + self.gestore.appunto.getNome() + ".jpg")
 
         if self.immagine:
             self.gestore.creaAppunti(self.leNome.text(), nomeImmagine=self.immagine[0], informazioni=self.textAppunto.toPlainText(), isNPC=self.isNPC,

@@ -17,6 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow, gestore):
         self.gestore = gestore
         self.MainWindow = MainWindow
+        self.MainWindow.setWindowTitle("Appunto")
         self.layout = QtWidgets.QVBoxLayout(self.MainWindow)
         self.immagineAppunto = QtWidgets.QLabel(self.MainWindow)
         self.testoAppunto = QtWidgets.QTextBrowser(self.MainWindow)

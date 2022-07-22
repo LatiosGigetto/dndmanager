@@ -87,7 +87,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "DnD Manager"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Dado"))
         self.dadoTesto.setText(_translate("MainWindow", "Scegli il numero e il tipo di dadi da lanciare:"))
         self.tipoDado.setItemText(0, _translate("MainWindow", "4"))
         self.tipoDado.setItemText(1, _translate("MainWindow", "6"))

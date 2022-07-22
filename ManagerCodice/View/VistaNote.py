@@ -37,7 +37,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Note"))
         self.label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Note:</span></p></body></html>"))
 
 
