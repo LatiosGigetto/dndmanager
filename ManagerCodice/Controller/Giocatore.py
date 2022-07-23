@@ -10,7 +10,6 @@ class Giocatore:
         self.accesso = Accesso.Accesso()
         self.utente = utente
         self.caricaScheda()
-    # TODO Python merda
 
     def cambioCredenziali(self, nomeUtente, password):
         self.accesso.caricaListaUtenti()
